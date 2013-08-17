@@ -1,0 +1,42 @@
+﻿body
+{
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error
+{
+    color: #f00;
+}
+
+.field-validation-valid
+{
+    display: none;
+}
+
+.input-validation-error
+{
+    border: 1px solid #f00;
+    background-color: #fee;
+}
+
+.validation-summary-errors
+{
+    font-weight: bold;
+    color: #f00;
+}
+
+.validation-summary-valid
+{
+    display: none;
+}
+
+/* Styles for bootstrap
+-----------------------------------------------------------*/
+.pagination
+{
+    margin: 5px 0 !important;
+}

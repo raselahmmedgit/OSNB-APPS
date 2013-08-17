@@ -1,0 +1,47 @@
+﻿@model OSNB.ViewModels.UserViewModel
+@using (Ajax.BeginForm("Edit", "User", null,
+        new AjaxOptions
+        {
+            UpdateTargetId = "updateTargetId",
+            InsertionMode = InsertionMode.Replace,
+            HttpMethod = "POST",
+            OnSuccess = "EditUserSuccess",
+        }, new { @id = "editUserForm" }))
+{
+    <div id="userAddPage">
+        @Html.ValidationSummary(true)
+        <!-- Error Container -->
+        <div class="row-fluid">
+            <div class="span12">
+                <div id="updateTargetId" class="error">
+                </div>
+            </div>
+        </div>
+        <!-- Password -->
+        <div class="row-fluid">
+            <div class="span4">
+                <div class="control-label">
+                    @Html.LabelFor(model => model.Password)
+                </div>
+            </div>
+            <div class="span8">
+                @Html.HiddenFor(model => model.UserName)
+                @Html.HiddenFor(model => model.Email)
+                @Html.PasswordFor(x => x.Password)
+            </div>
+            @Html.ValidationMessageFor(x => x.Password)
+        </div>
+        <!-- ConfirmPassword -->
+        <div class="row-fluid">
+            <div class="span4">
+                <div class="control-label">
+                    @Html.LabelFor(model => model.ConfirmPassword)
+                </div>
+            </div>
+            <div class="span8">
+                @Html.PasswordFor(x => x.ConfirmPassword)
+            </div>
+            @Html.ValidationMessageFor(x => x.ConfirmPassword)
+        </div>
+    </div>
+}
