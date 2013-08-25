@@ -95,6 +95,7 @@
     <Compile Include="Helpers\ExceptionHelper.cs" />
     <Compile Include="Helpers\LoggerHelper.cs" />
     <Compile Include="Helpers\SelectListItemExtension.cs" />
+    <Compile Include="Helpers\SendMailHelper.cs" />
     <Compile Include="Models\AppDbContext.cs" />
     <Compile Include="Models\BloodRequest.cs" />
     <Compile Include="Models\Comment.cs" />

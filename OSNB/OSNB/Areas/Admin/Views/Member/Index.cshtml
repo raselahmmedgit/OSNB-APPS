@@ -3,11 +3,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div id="memberIndexPage">
-    <div class="row-fluid">
-        <a href="@Url.Action("Add", "Member")" id="lnkAddMember" class="btn btn-primary">
-            <icon class="icon-plus-sign icon-white"></icon>
-            Add Member</a>
-    </div>
     <div class="row-fluid" id="memberDataTableZone">
         <table id="memberDataTable" class="table table-bordered table-hover">
             <thead>
@@ -36,13 +31,7 @@
             </tbody>
         </table>
     </div>
-    <div id="addMemberDialog" title="Add Member">
-    </div>
-    <div id="editMemberDialog" title="Edit Member">
-    </div>
     <div id="deleteMemberDailog" title="Delete Member">
-    </div>
-    <div id="detailsMemberDialog" title="Details Member">
     </div>
 </div>
 <script src="@Url.Content("~/Scripts/App/member-jq.js")" type="text/javascript"></script>
