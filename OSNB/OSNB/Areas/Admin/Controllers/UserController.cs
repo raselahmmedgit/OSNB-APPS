@@ -9,6 +9,7 @@ using OSNB.Helpers;
 using OSNB.Models;
 using OSNB.ViewModels;
 using OSNB.ViewModels.DataTableViewModels;
+using System.IO;
 
 namespace OSNB.Areas.Admin.Controllers
 {
@@ -60,14 +61,16 @@ namespace OSNB.Areas.Admin.Controllers
         //
         // GET: /User/Details/By ID
 
-        public ActionResult Details(int id)
+        public ActionResult Details(string id)
         {
             try
             {
                 var user = _db.Users.Find(id);
                 if (user != null)
                 {
-                    var userViewModel = new UserViewModel { UserName = user.UserName, Email = user.Email };
+                    var roles = user.Roles.ToList().Select(x => new AssignRoleModel { RoleName = x.RoleName });
+
+                    var userViewModel = new UserViewModel { UserName = user.UserName, Email = user.Email, Roles = roles };
 
                     //return View(userViewModel);
                     return PartialView("_Details", userViewModel);
@@ -92,7 +95,11 @@ namespace OSNB.Areas.Admin.Controllers
         {
             try
             {
-                return PartialView("_Add");
+                var roles = _db.Roles.ToList().Select(x => new AssignRoleModel { RoleName = x.RoleName });
+
+                var userViewModel = new UserViewModel { Roles = roles };
+
+                return PartialView("_Add", userViewModel);
             }
             catch (Exception ex)
             {
@@ -105,19 +112,13 @@ namespace OSNB.Areas.Admin.Controllers
         // POST: /User/Add
 
         [HttpPost]
-        public ActionResult Add(UserViewModel viewModel)
+        public ActionResult Add(UserViewModel viewModel, string[] RoleName)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    var user = new User { UserName = viewModel.UserName };
-
-                    //MembershipCreateStatus createStatus;
-                    //Membership.CreateUser(viewModel.UserName, viewModel.Password, viewModel.Email, passwordQuestion: null, passwordAnswer: null, isApproved: true, providerUserKey: null, status: out createStatus);
-
-                    _db.Users.Add(user);
-                    _db.SaveChanges();
+                    CreateUserWithRole(viewModel.UserName, viewModel.Password, viewModel.Email, RoleName);
 
                     return Content(Boolean.TrueString);
                 }
@@ -135,16 +136,19 @@ namespace OSNB.Areas.Admin.Controllers
         //
         // GET: /User/Edit/By ID
 
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
             try
             {
                 var user = _db.Users.Find(id);
                 if (user != null)
                 {
-                    var userViewModel = new UserViewModel { UserName = user.UserName, Email = user.Email };
+                    var roles = _db.Roles.ToList().Select(x => new AssignRoleModel { RoleName = x.RoleName });
 
-                    return PartialView("_Edit", userViewModel);
+                    //var editUserViewModel = new EditUserViewModel { UserName = user.UserName, Email = user.Email, OldPassword = user.PasswordHash, NewPassword = user.PasswordHash, ConfirmPassword = user.PasswordHash, ddlRoles = roles };
+                    var editUserViewModel = new EditUserViewModel { UserName = user.UserName, Email = user.Email, Roles = roles };
+
+                    return PartialView("_Edit", editUserViewModel);
                 }
                 else
                 {
@@ -163,16 +167,13 @@ namespace OSNB.Areas.Admin.Controllers
         // POST: /User/Edit/By ID
 
         [HttpPost]
-        public ActionResult Edit(UserViewModel viewModel)
+        public ActionResult Edit(EditUserViewModel viewModel, string[] RoleName)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    var user = new User { UserName = viewModel.UserName };
-
-                    _db.Entry(user).State = EntityState.Modified;
-                    _db.SaveChanges();
+                    UpdateUserWithRole(viewModel, RoleName);
 
                     return Content(Boolean.TrueString);
                 }
@@ -189,7 +190,7 @@ namespace OSNB.Areas.Admin.Controllers
         //
         // GET: /User/Delete/By ID
 
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string id)
         {
             try
             {
@@ -217,7 +218,7 @@ namespace OSNB.Areas.Admin.Controllers
         // POST: /User/Delete/By ID
 
         [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(string id)
         {
             try
             {
@@ -255,5 +256,204 @@ namespace OSNB.Areas.Admin.Controllers
 
             return PartialView("_RoleList", productTableModels);
         }
+
+        public ActionResult AssignRole(string id)
+        {
+            string userName = id;
+
+            try
+            {
+                if (!string.IsNullOrEmpty(userName))
+                {
+                    var roles = _db.Roles.ToList();
+
+                    UserRoleViewModel userRoleModel = new UserRoleViewModel { UserName = userName };
+
+                    var assignRoles = roles.Count() == 0 ? null : (roles.Select(role => new AssignRoleModel
+                    {
+                        RoleName = role.RoleName,
+                        IsAssigned = role.Users.Where(x => x.UserName == userName).Count() == 0 ? false : true
+                    }).ToList());
+
+                    userRoleModel.AssignRoles = assignRoles;
+
+                    return PartialView("_AssignRole", userRoleModel);
+
+                }
+                else
+                {
+                    return RedirectToAction("Index", "User");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ExceptionHelper.ExceptionMessageFormat(ex, true);
+                return RedirectToAction("Index", "User");
+            }
+
+        }
+
+        [HttpPost]
+        public ActionResult AssignRole(string userName, string[] roleName)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(userName))
+                {
+                    User user = _db.Users.Find(userName);
+
+                    if (user != null)
+                    {
+
+                        var roles = new List<Role>();
+
+                        foreach (var item in roleName)
+                        {
+                            var role = _db.Roles.Find(item);
+                            roles.Add(role);
+                        }
+
+                        user.Roles = roles;
+                        _db.SaveChanges();
+
+                        return Content(Boolean.TrueString);
+
+                    }
+                }
+
+                return Content(ExceptionHelper.ModelStateErrorFormat(ModelState));
+            }
+            catch (Exception ex)
+            {
+                ExceptionHelper.ExceptionMessageFormat(ex, true);
+                return Content("Sorry! Unable to edit this user.");
+            }
+        }
+
+        public ActionResult AddMember(string id)
+        {
+            try
+            {
+                var user = _db.Users.Find(id);
+                if (user != null)
+                {
+                    var memberBloodGroups = SelectListItemExtension.PopulateDropdownList(_db.MemberBloodGroups.ToList<MemberBloodGroup>(), "Id", "BloodGroupName").ToList();
+                    var memberDistricts = SelectListItemExtension.PopulateDropdownList(_db.MemberDistricts.ToList<MemberDistrict>(), "Id", "DistrictName").ToList();
+                    var memberZones = SelectListItemExtension.PopulateDropdownList(_db.MemberZones.ToList<MemberZone>(), "Id", "ZoneName").ToList();
+                    var memberHospitals = SelectListItemExtension.PopulateDropdownList(_db.MemberHospitals.ToList<MemberHospital>(), "Id", "HospitalName").ToList();
+
+                    var memberViewModel = new CreateOrEditMemberViewModel { UserName = user.UserName, UserEmail = user.Email, ddlMemberBloodGroups = memberBloodGroups, ddlMemberDistricts = memberDistricts, ddlMemberZones = memberZones, ddlMemberHospitals = memberHospitals };
+
+                    return View(memberViewModel);
+
+                }
+                else
+                {
+                    return RedirectToAction("Index", "User");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ExceptionHelper.ExceptionMessageFormat(ex, true);
+                return RedirectToAction("Index", "User");
+            }
+
+        }
+
+        [HttpPost]
+        public ActionResult AddMember(CreateOrEditMemberViewModel viewModel)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var file = viewModel.ImageFile;
+
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        var fileName = Path.GetFileName(file.FileName);
+                        var physicalPath = Path.Combine(Server.MapPath("~/Images"), fileName);
+
+                        // The files are not actually saved in this demo
+                        file.SaveAs(physicalPath);
+
+                        string imageUrl = @"../../Images/" + fileName;
+
+                        viewModel.SmallImageUrl = imageUrl;
+                        viewModel.ThumbImageUrl = imageUrl;
+                    }
+
+                    OSNB.Models.Member model = new OSNB.Models.Member { FirstName = viewModel.FirstName, LastName = viewModel.LastName, SurName = viewModel.SurName, DateOfBirth = viewModel.DateOfBirth, Address = viewModel.Address, PhoneNumber = viewModel.PhoneNumber, MobileNumber = viewModel.MobileNumber, ThumbImageUrl = viewModel.ThumbImageUrl, SmallImageUrl = viewModel.SmallImageUrl, UserName = viewModel.UserName, MemberBloodGroupId = viewModel.MemberBloodGroupId, MemberDistrictId = viewModel.MemberDistrictId, MemberZoneId = viewModel.MemberZoneId, MemberHospitalId = viewModel.MemberHospitalId };
+
+                    _db.Members.Add(model);
+                    _db.SaveChanges();
+
+                    return RedirectToAction("Index", "Member");
+                }
+
+                //return Content(ExceptionHelper.ModelStateErrorFormat(ModelState));
+                return View(viewModel);
+            }
+            catch (Exception ex)
+            {
+                ExceptionHelper.ExceptionMessageFormat(ex, true);
+                return View(viewModel);
+            }
+
+        }
+
+
+        private int CreateUserWithRole(string username, string password, string email, string[] rolenames)
+        {
+            var status = new MembershipCreateStatus();
+
+            Membership.CreateUser(username, password, email);
+            if (status == MembershipCreateStatus.Success)
+            {
+                // Add the role.
+                var user = _db.Users.Find(username);
+
+                var roles = new List<Role>();
+
+                foreach (var rolename in rolenames)
+                {
+                    var role = _db.Roles.Find(rolename);
+                    roles.Add(role);
+                }
+
+                user.Roles = roles;
+            }
+
+            return _db.SaveChanges();
+        }
+
+        private int UpdateUserWithRole(EditUserViewModel model, string[] rolenames)
+        {
+            bool changePasswordSucceeded;
+
+            MembershipUser currentUser = Membership.GetUser(User.Identity.Name, true /* userIsOnline */);
+            changePasswordSucceeded = currentUser.ChangePassword(model.OldPassword, model.NewPassword);
+
+            if (changePasswordSucceeded)
+            {
+                // Add the role.
+                var user = _db.Users.Find(model.UserName);
+
+                var roles = new List<Role>();
+
+                foreach (var rolename in rolenames)
+                {
+                    var role = _db.Roles.Find(rolename);
+                    roles.Add(role);
+                }
+
+                user.Roles = roles;
+            }
+
+            return _db.SaveChanges();
+        }
+
     }
 }

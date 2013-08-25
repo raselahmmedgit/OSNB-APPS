@@ -22,4 +22,20 @@
             @Html.DisplayFor(x => x.Email)
         </div>
     </div>
+    <!-- RoleName -->
+    <div class="row-fluid">
+        <div class="span4">
+            <div class="control-label">
+                @Html.LabelFor(model => model.RoleName)
+            </div>
+        </div>
+        <div class="span8">
+            @foreach (var role in Model.Roles)
+            {
+                <div class="span3">
+                    @role.RoleName
+                </div>
+            }
+        </div>
+    </div>
 </div>

@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Altairis.Web.Security">
+      <HintPath>..\packages\Altairis.Web.Security.2.4.4.0\lib\net40\Altairis.Web.Security.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
@@ -109,8 +112,11 @@
     <Compile Include="Models\SendEmailInfo.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\AssignRoleModel.cs" />
+    <Compile Include="ViewModels\BloodRequestViewModel.cs" />
     <Compile Include="ViewModels\ChangePasswordViewModel.cs" />
     <Compile Include="ViewModels\CommentViewModel.cs" />
+    <Compile Include="ViewModels\DataTableViewModels\BloodRequestTableModel.cs" />
     <Compile Include="ViewModels\DataTableViewModels\CommentTableModel.cs" />
     <Compile Include="ViewModels\DataTableViewModels\MemberBloodGroupTableModel.cs" />
     <Compile Include="ViewModels\DataTableViewModels\MemberDistrictTableModel.cs" />
@@ -137,6 +143,7 @@
     <Compile Include="ViewModels\PostViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
     <Compile Include="ViewModels\SendEmailInfoViewModel.cs" />
+    <Compile Include="ViewModels\UserRoleViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -297,6 +304,7 @@
     <Content Include="README.jQuery.vsdoc.txt" />
     <Content Include="Scripts\App\app-jq.js" />
     <Content Include="Scripts\App\comment-jq.js" />
+    <Content Include="Scripts\App\homepage-jq.js" />
     <Content Include="Scripts\App\member-jq.js" />
     <Content Include="Scripts\App\memberpost-jq.js" />
     <Content Include="Scripts\App\membercomment-jq.js" />
@@ -483,15 +491,16 @@
     <Content Include="Areas\Member\Views\Comment\_Details.cshtml" />
     <Content Include="Areas\Member\Views\Comment\_Edit.cshtml" />
     <Content Include="Areas\Member\Views\Comment\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Member\_Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Member\_Add.cshtml" />
-    <Content Include="Areas\Admin\Views\Member\_Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Member\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Member\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Member\_Delete.cshtml" />
     <Content Include="Areas\Admin\Views\SendEmail\Index.cshtml" />
     <Content Include="Areas\Admin\Views\SendEmail\_Details.cshtml" />
     <Content Include="Areas\Admin\Views\SendEmail\_Add.cshtml" />
     <Content Include="Areas\Admin\Views\SendEmail\_Edit.cshtml" />
     <Content Include="Areas\Admin\Views\SendEmail\_Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\User\_AssignRole.cshtml" />
+    <Content Include="Areas\Admin\Views\User\AddMember.cshtml" />
     <None Include="ClassDiagram1.cd" />
     <None Include="Content\DataTables-1.9.4\extras\TableTools\media\images\psd\collection.psd" />
     <None Include="Content\DataTables-1.9.4\extras\TableTools\media\images\psd\copy document.psd" />

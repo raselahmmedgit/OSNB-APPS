@@ -89,6 +89,7 @@ $(function () {
             { "sName": "Actions",
                 "bSearchable": false,
                 "bSortable": false,
+                "sWidth": "85px",
                 "fnRender": function (oObj) {
                     return '<a class="lnkDetailsMemberStatus btn btn-primary btn-mini" style="margin-right: 5px;" href=\"/Admin/MemberStatus/Details/' +
                                 oObj.aData[3] + '\" ><icon class="icon-search icon-white"></icon></a>' +

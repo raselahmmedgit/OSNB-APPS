@@ -58,6 +58,27 @@ function DeleteUserSuccess() {
 
     }
 }
+
+// AssignRole User Success Function
+function AssignRoleUserSuccess() {
+    if ($("#updateTargetId").html() == "True") {
+
+        //now we can close the dialog
+        $('#assignRoleUserDailog').dialog('close');
+
+        //JQDialogAlert mass, status
+        JQDialogAlert("Assign role successfully.", "dialogSuccess");
+
+        userObjData.fnDraw();
+
+    }
+    else {
+        //show message in popup
+        $("#updateTargetId").show();
+
+    }
+}
+
 //end Add, Edit, Delete - Success Funtion
 //-----------------------------------------------------
 
@@ -118,13 +139,18 @@ $(function () {
             { "sName": "Actions",
                 "bSearchable": false,
                 "bSortable": false,
+                "sWidth": "150px",
                 "fnRender": function (oObj) {
                     return '<a class="lnkDetailsUser btn btn-primary btn-mini" style="margin-right: 5px;" href=\"/Admin/User/Details/' +
                                 oObj.aData[4] + '\" ><icon class="icon-search icon-white"></icon></a>' +
                                 '<a class="lnkEditUser  btn btn-success btn-mini" style="margin-right: 5px;" href=\"/Admin/User/Edit/' +
                                 oObj.aData[4] + '\" ><icon class="icon-pencil icon-white"></icon></a>' +
-                                '<a class="lnkDeleteUser btn btn-danger btn-mini" href=\"/Admin/User/Delete/' +
-                                oObj.aData[4] + '\" ><icon class="icon-trash icon-white"></icon></a>';
+                                '<a class="lnkDeleteUser btn btn-danger btn-mini" style="margin-right: 5px;" href=\"/Admin/User/Delete/' +
+                                oObj.aData[4] + '\" ><icon class="icon-trash icon-white"></icon></a>' +
+                                '<a class="lnkAssignRoleUser btn btn-success btn-mini" style="margin-right: 5px;" href=\"/Admin/User/AssignRole/' +
+                                oObj.aData[4] + '\" ><icon class="icon-check icon-white"></icon></a>' +
+                                '<a class="lnkAddMember btn btn-success btn-mini" href=\"/Admin/User/AddMember/' +
+                                oObj.aData[4] + '\" ><icon class="icon-plus icon-white"></icon></a>';
 
                 }
 
@@ -204,7 +230,7 @@ $(function () {
     });
 
     $('#userDataTable tbody td a.lnkEditUser').live('click', function () {
-    //$('#userDataTable tbody td .lnkEditUser').on('click', 'a', function () {
+        //$('#userDataTable tbody td .lnkEditUser').on('click', 'a', function () {
 
         //change the title of the dialog
         var linkObj = $(this);
@@ -247,7 +273,7 @@ $(function () {
     });
 
     $('#userDataTable tbody td a.lnkDeleteUser').live('click', function () {
-    //$('#userDataTable tbody td .lnkDeleteUser').on('click', 'a', function () {
+        //$('#userDataTable tbody td .lnkDeleteUser').on('click', 'a', function () {
 
         //change the title of the dialog
         var linkObj = $(this);
@@ -285,7 +311,7 @@ $(function () {
     });
 
     $('#userDataTable tbody td a.lnkDetailsUser').live('click', function () {
-    //$('#userDataTable tbody td .lnkDetailsUser').on('click', 'a', function () {
+        //$('#userDataTable tbody td .lnkDetailsUser').on('click', 'a', function () {
 
         var linkObj = $(this);
         var dialogDiv = $('#detailsUserDialog');
@@ -297,6 +323,51 @@ $(function () {
         return false;
 
     });
+
+    //Assign Role
+    $("#assignRoleUserDailog").dialog({
+        autoOpen: false,
+        width: 400,
+        resizable: false,
+        modal: true,
+        buttons: {
+            "Ok": function () {
+                //make sure there is nothing on the message before we continue                         
+                $("#updateTargetId").html('');
+                $("#assignRoleUserForm").submit();
+            },
+            "Cancel": function () {
+                $(this).dialog("close");
+            }
+        }
+    });
+
+    $('#userDataTable tbody td a.lnkAssignRoleUser').live('click', function () {
+        //$('#userDataTable tbody td .lnkAssignRoleUser').on('click', 'a', function () {
+
+        //change the title of the dialog
+        var linkObj = $(this);
+        var dialogDiv = $('#assignRoleUserDailog');
+        var viewUrl = linkObj.attr('href');
+        $.get(viewUrl, function (data) {
+            dialogDiv.html(data);
+            //validation
+            var $form = $("#assignRoleUserForm");
+            // Unbind existing validation
+            $form.unbind();
+            $form.data("validator", null);
+            // Check document for changes
+            $.validator.unobtrusive.parse(document);
+            // Re add validation with changes
+            $form.validate($form.data("unobtrusiveValidation").options);
+            //open dialog
+            dialogDiv.dialog('open');
+
+        });
+        return false;
+
+    });
+
 
     //end Add, Edit, Delete - Dialog, Click Event
     //-------------------------------------------------------

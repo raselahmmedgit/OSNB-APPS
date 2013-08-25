@@ -65,5 +65,19 @@
             </div>
             @Html.ValidationMessageFor(x => x.ConfirmPassword)
         </div>
+        <!-- RoleName -->
+        <div class="row-fluid">
+            @foreach (var role in Model.Roles)
+            {
+                <div class="span3">
+                    <label class="checkbox" for="usr-@role.RoleName">
+                        <input type="checkbox" id="usr-@role.RoleName" 
+                                   name="RoleName" 
+                                   value="@role.RoleName" @(Html.Raw(role.IsAssigned ? "checked=\"checked\"" : ""))  />
+                        @role.RoleName
+                    </label>
+                </div>
+            }
+        </div>
     </div>
 }

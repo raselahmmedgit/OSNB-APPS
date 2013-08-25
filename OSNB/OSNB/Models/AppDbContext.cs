@@ -86,43 +86,43 @@ namespace OSNB.Models
     //public class DbInitializer : CreateDatabaseIfNotExists<AppDbContext>
     public class DbInitializer : DropCreateDatabaseIfModelChanges<AppDbContext>
     {
-        //private static void CreateUserWithRole(string username, string password, string email, string rolename, AppDbContext context)
-        //{
-        //    var status = new MembershipCreateStatus();
+        private static void CreateUserWithRole(string username, string password, string email, string rolename, AppDbContext context)
+        {
+            var status = new MembershipCreateStatus();
 
-        //    Membership.CreateUser(username, password, email);
-        //    if (status == MembershipCreateStatus.Success)
-        //    {
-        //        // Add the role.
-        //        var user = context.Users.Find(username);
-        //        var adminRole = context.Roles.Find(rolename);
-        //        user.Roles = new List<Role> { adminRole };
-        //    }
-        //}
+            Membership.CreateUser(username, password, email);
+            if (status == MembershipCreateStatus.Success)
+            {
+                // Add the role.
+                var user = context.Users.Find(username);
+                var adminRole = context.Roles.Find(rolename);
+                user.Roles = new List<Role> { adminRole };
+            }
+        }
 
 
-        //protected override void Seed(AppDbContext context)
-        //{
-        //    // Create default roles.
-        //    var roles = new List<Role>
-        //                    {
-        //                        new Role {RoleName = "Admin"},
-        //                        new Role {RoleName = "User"}
-        //                    };
+        protected override void Seed(AppDbContext context)
+        {
+            // Create default roles.
+            var roles = new List<Role>
+                            {
+                                new Role {RoleName = "Admin"},
+                                new Role {RoleName = "User"}
+                            };
 
-        //    roles.ForEach(r => context.Roles.Add(r));
+            roles.ForEach(r => context.Roles.Add(r));
 
-        //    context.SaveChanges();
+            context.SaveChanges();
 
-        //    // Create some users.
-        //    CreateUserWithRole("Rasel", "@123456", "raselahmmed@gmail.com", "Admin", context);
-        //    CreateUserWithRole("Ahmmed", "@123456", "raselahmmed@gmail.com", "Admin", context);
-        //    CreateUserWithRole("Sohel", "@123456", "sohel@gmail.com", "User", context);
-        //    CreateUserWithRole("Shafin", "@123456", "shafin@gmail.com", "User", context);
+            // Create some users.
+            CreateUserWithRole("Rasel", "@123456", "raselahmmed@gmail.com", "Admin", context);
+            CreateUserWithRole("Ahmmed", "@123456", "raselahmmed@gmail.com", "Admin", context);
+            CreateUserWithRole("Sohel", "@123456", "sohel@gmail.com", "User", context);
+            CreateUserWithRole("Shafin", "@123456", "shafin@gmail.com", "User", context);
 
-        //    context.SaveChanges();
+            context.SaveChanges();
 
-        //}
+        }
     }
 
     #endregion

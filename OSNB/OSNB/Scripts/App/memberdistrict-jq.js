@@ -118,6 +118,7 @@ $(function () {
             { "sName": "Actions",
                 "bSearchable": false,
                 "bSortable": false,
+                "sWidth": "85px",
                 "fnRender": function (oObj) {
                     return '<a class="lnkDetailsMemberDistrict btn btn-primary btn-mini" style="margin-right: 5px;" href=\"/Admin/MemberDistrict/Details/' +
                                 oObj.aData[2] + '\" ><icon class="icon-search icon-white"></icon></a>' +

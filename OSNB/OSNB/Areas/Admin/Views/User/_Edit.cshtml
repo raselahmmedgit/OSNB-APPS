@@ -1,4 +1,4 @@
-﻿@model OSNB.ViewModels.UserViewModel
+﻿@model OSNB.ViewModels.EditUserViewModel
 @using (Ajax.BeginForm("Edit", "User", null,
         new AjaxOptions
         {
@@ -15,21 +15,33 @@
             <div class="span12">
                 <div id="updateTargetId" class="error">
                 </div>
+                @Html.HiddenFor(model => model.UserName)
+                @Html.HiddenFor(model => model.Email)
             </div>
         </div>
-        <!-- Password -->
+        <!-- OldPassword -->
         <div class="row-fluid">
             <div class="span4">
                 <div class="control-label">
-                    @Html.LabelFor(model => model.Password)
+                    @Html.LabelFor(model => model.OldPassword)
                 </div>
             </div>
             <div class="span8">
-                @Html.HiddenFor(model => model.UserName)
-                @Html.HiddenFor(model => model.Email)
-                @Html.PasswordFor(x => x.Password)
+                @Html.PasswordFor(x => x.OldPassword)
             </div>
-            @Html.ValidationMessageFor(x => x.Password)
+            @Html.ValidationMessageFor(x => x.OldPassword)
+        </div>
+        <!-- NewPassword -->
+        <div class="row-fluid">
+            <div class="span4">
+                <div class="control-label">
+                    @Html.LabelFor(model => model.NewPassword)
+                </div>
+            </div>
+            <div class="span8">
+                @Html.PasswordFor(x => x.NewPassword)
+            </div>
+            @Html.ValidationMessageFor(x => x.NewPassword)
         </div>
         <!-- ConfirmPassword -->
         <div class="row-fluid">
@@ -42,6 +54,20 @@
                 @Html.PasswordFor(x => x.ConfirmPassword)
             </div>
             @Html.ValidationMessageFor(x => x.ConfirmPassword)
+        </div>
+        <!-- RoleName -->
+        <div class="row-fluid">
+            @foreach (var role in Model.Roles)
+            {
+                <div class="span3">
+                    <label class="checkbox" for="usr-@role.RoleName">
+                        <input type="checkbox" id="usr-@role.RoleName" 
+                                   name="RoleName" 
+                                   value="@role.RoleName" @(Html.Raw(role.IsAssigned ? "checked=\"checked\"" : ""))  />
+                        @role.RoleName
+                    </label>
+                </div>
+            }
         </div>
     </div>
 }

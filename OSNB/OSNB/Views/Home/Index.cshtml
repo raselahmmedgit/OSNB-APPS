@@ -1,8 +1,47 @@
 ﻿@{
     ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>@ViewBag.Message</h2>
-<p>
-    A Community of Voluntary Blood Donors of Bangladesh.
-</p>
+<div id="homePage" class="row-fluid">
+    <div id="homePageMapZone">
+        <div class="switch-board clearfix">
+            <img src="../../Images/img.png" usemap="#green" border="0">
+            <map name="green">
+                <area shape="rect" coords="19,44,45,11,87,37,82,76,49,98" href="http://www.trees.com/save.html">
+                <area shape="rect" coords="128,132,241,179" href="http://www.trees.com/furniture.html">
+                <area shape="circle" coords="68,211,35" href="http://www.trees.com/plantations.html">
+            </map>
+        </div>
+    </div>
+    <div class="clearfix">
+    </div>
+    <div id="homePageBloodRequestZone">
+        <div class="board-widgets clearfix">
+            <div class="board-widgets-head clearfix">
+                <h4 class="pull-left">
+                    Current Request for Blood
+                </h4>
+            </div>
+            <div class="board-widgets-content">
+                <table id="homePageBloodRequestDataTable" class="table table-bordered table-hover">
+                    <tbody>
+                    </tbody>
+                </table>
+                @*<div class='span5'>
+                    <div>
+                        <strong>Requester Name</strong><span>RequesterName</span></div>
+                    <div>
+                        <strong>Required Blood Group</strong><span>RequiredBloodGroup</span>
+                    </div>
+                    <div>
+                        <strong>Present Location</strong><span>PresentLocation</span>
+                    </div>
+                    <div>
+                        <strong>Requester Contact No</strong><span>RequesterContactNo</span>
+                    </div>
+                </div>*@
+            </div>
+        </div>
+    </div>
+</div>
+<script src="@Url.Content("~/Scripts/App/homepage-jq.js")" type="text/javascript"></script>
