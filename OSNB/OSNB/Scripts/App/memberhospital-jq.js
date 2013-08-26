@@ -91,7 +91,7 @@ $(function () {
             { "sName": "Actions",
                 "bSearchable": false,
                 "bSortable": false,
-                "sWidth": "85px",
+                "sWidth": "90px",
                 "fnRender": function (oObj) {
                     return '<a class="lnkDetailsMemberHospital btn btn-primary btn-mini" style="margin-right: 5px;" href=\"/Admin/MemberHospital/Details/' +
                                 oObj.aData[5] + '\" ><icon class="icon-search icon-white"></icon></a>' +

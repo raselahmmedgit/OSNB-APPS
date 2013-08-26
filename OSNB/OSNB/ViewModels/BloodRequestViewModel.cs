@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace OSNB.ViewModels
 {
     public class BloodRequestViewModel
     {
         [Required]
-        public int Id { get; set; }
+        public int BloodRequestId { get; set; }
 
         [Display(Name = "Your Name")]
         [MaxLength(200)]
@@ -28,7 +29,7 @@ namespace OSNB.ViewModels
         public string PresentLocation { get; set; }
 
         [Display(Name = "Date of Donation")]
-        public DateTime DateOfDonation { get; set; }
+        public DateTime? DateOfDonation { get; set; }
 
         [Display(Name = "More Message")]
         [MaxLength(250)]
@@ -36,7 +37,9 @@ namespace OSNB.ViewModels
 
         //Required Blood Group
         public int RequiredBloodGroupId { get; set; }
-        public string RequiredBloodGroup { get; set; }
+        public string RequiredBloodGroupName { get; set; }
         public virtual MemberBloodGroupViewModel MemberBloodGroupViewModel { get; set; }
+
+        public IEnumerable<SelectListItem> ddlMemberBloodGroups { get; set; }
     }
 }

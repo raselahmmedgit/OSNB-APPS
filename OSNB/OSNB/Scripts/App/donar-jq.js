@@ -1,17 +1,17 @@
 ﻿//-----------------------------------------------------
 //start Add, Edit, Delete - Success Funtion
 
-// Delete Member Success Function
-function DeleteMemberSuccess() {
+// SendEmail Donar Success Function
+function SendEmailDonarSuccess() {
     if ($("#updateTargetId").html() == "True") {
 
         //now we can close the dialog
-        $('#deleteMemberDailog').dialog('close');
+        $('#deleteDonarDailog').dialog('close');
 
         //JQDialogAlert mass, status
-        JQDialogAlert("Member deleted successfully.", "dialogSuccess");
+        JQDialogAlert("Donar deleted successfully.", "dialogSuccess");
 
-        memberObjData.fnDraw();
+        donarObjData.fnDraw();
 
     }
     else {
@@ -20,15 +20,15 @@ function DeleteMemberSuccess() {
 
     }
 }
-//end Add, Edit, Delete - Success Funtion
+//end SendEmail - Success Funtion
 //-----------------------------------------------------
 
-var memberObjData;
+var donarObjData;
 
 $(function () {
     //start DataTable Script
 
-    memberObjData = $('#memberDataTable').dataTable({
+    donarObjData = $('#donarDataTable').dataTable({
         "bJQueryUI": false,
         "bAutoWidth": false,
         "sPaginationType": "bootstrap",
@@ -43,7 +43,7 @@ $(function () {
         },
         "bProcessing": true,
         "bServerSide": true,
-        "sAjaxSource": "/Admin/Member/GetMembers",
+        "sAjaxSource": "/Donar/GetDonarList",
         "aoColumns": [
             { "sName": "FullName" },
             { "sName": "Address" },
@@ -55,12 +55,10 @@ $(function () {
                 "bSortable": false,
                 "sWidth": "90px",
                 "fnRender": function (oObj) {
-                    return '<a class="lnkDetailsMember btn btn-primary btn-mini" style="margin-right: 5px;" href=\"/Admin/Member/Details/' +
-                                oObj.aData[6] + '\" ><icon class="icon-search icon-white"></icon></a>' +
-                                '<a class="lnkEditMember  btn btn-success btn-mini" style="margin-right: 5px;" href=\"/Admin/Member/Edit/' +
-                                oObj.aData[6] + '\" ><icon class="icon-pencil icon-white"></icon></a>' +
-                                '<a class="lnkDeleteMember btn btn-danger btn-mini" href=\"/Admin/Member/Delete/' +
-                                oObj.aData[6] + '\" ><icon class="icon-trash icon-white"></icon></a>';
+                    return '<a class="lnkSendEmailDonar btn btn-primary btn-mini" style="margin-right: 5px;" href=\"/Donar/SendEmail/' +
+                                oObj.aData[6] + '\" ><icon class="icon-envelope icon-white"></icon></a>' +
+                                '<a class="lnkDetailDonar  btn btn-success btn-mini" style="margin-right: 5px;" href=\"/Donar/Details/' +
+                                oObj.aData[6] + '\" ><icon class="icon-search icon-white"></icon></a>';
 
                 }
 
@@ -73,17 +71,17 @@ $(function () {
     //-------------------------------------------------------
     //start Add, Edit, Delete - Dialog, Click Event
 
-    //delete Member
-    $("#deleteMemberDailog").dialog({
+    //SendEmail Donar
+    $("#sendEmailDonarDailog").dialog({
         autoOpen: false,
-        width: 400,
+        width: 600,
         resizable: false,
         modal: true,
         buttons: {
-            "Yes": function () {
+            "Send": function () {
                 //make sure there is nothing on the message before we continue                         
                 $("#updateTargetId").html('');
-                $("#deleteMemberForm").submit();
+                $("#sendEmailDonarForm").submit();
             },
             "Cancel": function () {
                 $(this).dialog("close");
@@ -91,17 +89,17 @@ $(function () {
         }
     });
 
-    $('#memberDataTable tbody td a.lnkDeleteMember').live('click', function () {
-        //$('#memberDataTable tbody td .lnkDeleteMember').on('click', 'a', function () {
+    $('#donarDataTable tbody td a.lnkSendEmailDonar').live('click', function () {
+        //$('#donarDataTable tbody td .lnkSendEmailDonar').on('click', 'a', function () {
 
         //change the title of the dialog
         var linkObj = $(this);
-        var dialogDiv = $('#deleteMemberDailog');
+        var dialogDiv = $('#sendEmailDonarDailog');
         var viewUrl = linkObj.attr('href');
         $.get(viewUrl, function (data) {
             dialogDiv.html(data);
             //validation
-            var $form = $("#deleteMemberForm");
+            var $form = $("#sendEmailDonarForm");
             // Unbind existing validation
             $form.unbind();
             $form.data("validator", null);

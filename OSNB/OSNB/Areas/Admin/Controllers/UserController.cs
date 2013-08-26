@@ -365,6 +365,17 @@ namespace OSNB.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult AddMember(CreateOrEditMemberViewModel viewModel)
         {
+
+            var memberBloodGroups = SelectListItemExtension.PopulateDropdownList(_db.MemberBloodGroups.ToList<MemberBloodGroup>(), "Id", "BloodGroupName", isEdit: true, selectedValue: viewModel.MemberBloodGroupId != 0 ? viewModel.MemberBloodGroupId.ToString() : "0").ToList();
+            var memberDistricts = SelectListItemExtension.PopulateDropdownList(_db.MemberDistricts.ToList<MemberDistrict>(), "Id", "DistrictName", isEdit: true, selectedValue: viewModel.MemberDistrictId != 0 ? viewModel.MemberDistrictId.ToString() : "0").ToList();
+            var memberZones = SelectListItemExtension.PopulateDropdownList(_db.MemberZones.ToList<MemberZone>(), "Id", "ZoneName", isEdit: true, selectedValue: viewModel.MemberZoneId != 0 ? viewModel.MemberZoneId.ToString() : "0").ToList();
+            var memberHospitals = SelectListItemExtension.PopulateDropdownList(_db.MemberHospitals.ToList<MemberHospital>(), "Id", "HospitalName", isEdit: true, selectedValue: viewModel.MemberHospitalId != 0 ? viewModel.MemberHospitalId.ToString() : "0").ToList();
+
+            viewModel.ddlMemberBloodGroups = memberBloodGroups;
+            viewModel.ddlMemberDistricts = memberDistricts;
+            viewModel.ddlMemberZones = memberZones;
+            viewModel.ddlMemberHospitals = memberHospitals;
+
             try
             {
                 if (ModelState.IsValid)
@@ -379,13 +390,13 @@ namespace OSNB.Areas.Admin.Controllers
                         // The files are not actually saved in this demo
                         file.SaveAs(physicalPath);
 
-                        string imageUrl = @"../../Images/" + fileName;
+                        string imageUrl = @"/Images/" + fileName;
 
                         viewModel.SmallImageUrl = imageUrl;
                         viewModel.ThumbImageUrl = imageUrl;
                     }
 
-                    OSNB.Models.Member model = new OSNB.Models.Member { FirstName = viewModel.FirstName, LastName = viewModel.LastName, SurName = viewModel.SurName, DateOfBirth = viewModel.DateOfBirth, Address = viewModel.Address, PhoneNumber = viewModel.PhoneNumber, MobileNumber = viewModel.MobileNumber, ThumbImageUrl = viewModel.ThumbImageUrl, SmallImageUrl = viewModel.SmallImageUrl, UserName = viewModel.UserName, MemberBloodGroupId = viewModel.MemberBloodGroupId, MemberDistrictId = viewModel.MemberDistrictId, MemberZoneId = viewModel.MemberZoneId, MemberHospitalId = viewModel.MemberHospitalId };
+                    OSNB.Models.Member model = new OSNB.Models.Member { FirstName = viewModel.FirstName, LastName = viewModel.LastName, SurName = viewModel.SurName, DateOfBirth = viewModel.DateOfBirth, Address = viewModel.Address, PhoneNumber = viewModel.PhoneNumber, MobileNumber = viewModel.MobileNumber, ThumbImageUrl = viewModel.ThumbImageUrl, SmallImageUrl = viewModel.SmallImageUrl, UserName = viewModel.UserName, MemberBloodGroupId = viewModel.MemberBloodGroupId, MemberDistrictId = viewModel.MemberDistrictId == 0 ? 1 : viewModel.MemberDistrictId, MemberZoneId = viewModel.MemberZoneId, MemberHospitalId = viewModel.MemberHospitalId };
 
                     _db.Members.Add(model);
                     _db.SaveChanges();

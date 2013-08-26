@@ -139,7 +139,7 @@ $(function () {
             { "sName": "Actions",
                 "bSearchable": false,
                 "bSortable": false,
-                "sWidth": "150px",
+                "sWidth": "160px",
                 "fnRender": function (oObj) {
                     return '<a class="lnkDetailsUser btn btn-primary btn-mini" style="margin-right: 5px;" href=\"/Admin/User/Details/' +
                                 oObj.aData[4] + '\" ><icon class="icon-search icon-white"></icon></a>' +

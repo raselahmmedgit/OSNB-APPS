@@ -87,7 +87,7 @@ $(function () {
             { "sName": "Actions",
                 "bSearchable": false,
                 "bSortable": false,
-                "sWidth": "85px",
+                "sWidth": "90px",
                 "fnRender": function (oObj) {
                     return '<a class="lnkDetailsMemberDonateType btn btn-primary btn-mini" style="margin-right: 5px;" href=\"/Admin/MemberDonateType/Details/' +
                                 oObj.aData[1] + '\" ><icon class="icon-search icon-white"></icon></a>' +
