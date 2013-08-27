@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
+using OSNB.Helpers;
 using OSNB.Models;
 using OSNB.ViewModels;
 
@@ -12,7 +13,7 @@ namespace OSNB.Controllers
 {
     public class AccountController : Controller
     {
-
+        private AppDbContext _db = new AppDbContext();
         //
         // GET: /Account/LogOn
 
@@ -67,7 +68,11 @@ namespace OSNB.Controllers
 
         public ActionResult Register()
         {
-            return View();
+            var memberBloodGroups = SelectListItemExtension.PopulateDropdownList(_db.MemberBloodGroups.ToList<MemberBloodGroup>(), "Id", "BloodGroupName").ToList();
+            var memberDistricts = SelectListItemExtension.PopulateDropdownList(_db.MemberDistricts.ToList<MemberDistrict>(), "Id", "DistrictName").ToList();
+            var registerViewModel = new RegisterViewModel { ddlMemberBloodGroups = memberBloodGroups, ddlMemberDistricts = memberDistricts };
+
+            return View(registerViewModel);
         }
 
         //
@@ -84,6 +89,11 @@ namespace OSNB.Controllers
 
                 if (createStatus == MembershipCreateStatus.Success)
                 {
+                    OSNB.Models.Member member = new OSNB.Models.Member { FirstName = null, LastName = null, SurName = null, DateOfBirth = null, Address = null, PhoneNumber = null, MobileNumber = null, ThumbImageUrl = null, SmallImageUrl = null, UserName = model.UserName, MemberBloodGroupId = model.MemberBloodGroupId, MemberDistrictId = model.MemberDistrictId };
+
+                    _db.Members.Add(member);
+                    _db.SaveChanges();
+
                     FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
                     return RedirectToAction("Index", "Home");
                 }

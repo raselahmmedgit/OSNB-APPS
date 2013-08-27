@@ -236,8 +236,21 @@
     <Content Include="Content\DataTables-1.9.4\media\images\sort_both.png" />
     <Content Include="Content\DataTables-1.9.4\media\images\sort_desc.png" />
     <Content Include="Content\DataTables-1.9.4\media\images\sort_desc_disabled.png" />
+    <Content Include="Content\Images\App\delete.png" />
+    <Content Include="Content\Images\App\detail.png" />
     <Content Include="Content\Images\App\details_close.png" />
     <Content Include="Content\Images\App\details_open.png" />
+    <Content Include="Content\Images\App\dhakacity.jpg" />
+    <Content Include="Content\Images\App\edit.png" />
+    <Content Include="Content\Images\App\facebook.png" />
+    <Content Include="Content\Images\App\icon-cross.png" />
+    <Content Include="Content\Images\App\icon-info.png" />
+    <Content Include="Content\Images\App\icon-tick.png" />
+    <Content Include="Content\Images\App\icon-warning.png" />
+    <Content Include="Content\Images\App\linkedin.png" />
+    <Content Include="Content\Images\App\loading.gif" />
+    <Content Include="Content\Images\App\setting.png" />
+    <Content Include="Content\Images\App\twitter.png" />
     <Content Include="Content\Images\glyphicons-halflings-white.png" />
     <Content Include="Content\Images\glyphicons-halflings.png" />
     <Content Include="Content\jqdialog.custom.css" />
@@ -304,9 +317,12 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
     <Content Include="Global.asax" />
+    <Content Include="Images\calendar.gif" />
+    <Content Include="Images\dhakacity.jpg" />
     <Content Include="README.jQuery.vsdoc.txt" />
     <Content Include="Scripts\App\app-jq.js" />
     <Content Include="Scripts\App\comment-jq.js" />
+    <Content Include="Scripts\App\bloodrequest-jq.js" />
     <Content Include="Scripts\App\donar-jq.js" />
     <Content Include="Scripts\App\homepage-jq.js" />
     <Content Include="Scripts\App\member-jq.js" />
@@ -422,7 +438,6 @@
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Areas\Member\Models\" />
     <Folder Include="Areas\Member\Views\Shared\" />
-    <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -525,6 +540,7 @@
     <Content Include="Views\Donar\Details.cshtml" />
     <Content Include="Views\BloodRequest\Index.cshtml" />
     <Content Include="Views\BloodRequest\ForBlood.cshtml" />
+    <Content Include="Views\BloodRequest\_Details.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
