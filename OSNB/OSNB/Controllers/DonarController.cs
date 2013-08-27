@@ -92,10 +92,26 @@ namespace OSNB.Controllers
                 {
                     var sendEmailInfo = new SendEmailInfo { SenderName = viewModel.SenderName, SenderContactNo = viewModel.SenderContactNo, Subject = viewModel.Subject, Message = viewModel.Message, MemberId = viewModel.MemberViewModelId };
 
-                    _db.Entry(sendEmailInfo).State = EntityState.Modified;
-                    _db.SaveChanges();
+                    var member = _db.Members.Find(viewModel.MemberViewModelId);
+                    var toEmail = member.User != null ? member.User.Email : null;
+                    var body = viewModel.Message + "Contact No: " + viewModel.SenderContactNo;
 
-                    return Content(Boolean.TrueString);
+                    SendMailHelper sendMailHelper = new SendMailHelper();
+                    bool isResult = sendMailHelper.SendEmail(toEmail, viewModel.Subject, body);
+
+                    if (isResult)
+                    {
+                        _db.SendEmailInfos.Add(sendEmailInfo);
+                        _db.SaveChanges();
+
+                        return Content(Boolean.TrueString);
+                    }
+                    else
+                    {
+                        return Content("Sorry! Unable to send email to this member.");
+                    }
+
+
                 }
 
                 return Content(ExceptionHelper.ModelStateErrorFormat(ModelState));
