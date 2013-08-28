@@ -133,6 +133,7 @@
     <Compile Include="ViewModels\DataTableViewModels\RoleTableModel.cs" />
     <Compile Include="ViewModels\DataTableViewModels\SendEmailInfoTableModel.cs" />
     <Compile Include="ViewModels\DataTableViewModels\UserTableModel.cs" />
+    <Compile Include="ViewModels\HomePageViewModel.cs" />
     <Compile Include="ViewModels\LogOnViewModel.cs" />
     <Compile Include="ViewModels\MemberBloodGroupViewModel.cs" />
     <Compile Include="ViewModels\MemberDistrictViewModel.cs" />
@@ -241,6 +242,7 @@
     <Content Include="Content\Images\App\details_close.png" />
     <Content Include="Content\Images\App\details_open.png" />
     <Content Include="Content\Images\App\dhakacity.jpg" />
+    <Content Include="Content\Images\App\dhakacity.png" />
     <Content Include="Content\Images\App\edit.png" />
     <Content Include="Content\Images\App\facebook.png" />
     <Content Include="Content\Images\App\icon-cross.png" />

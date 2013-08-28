@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using OSNB.Helpers;
 using OSNB.Models;
+using OSNB.ViewModels;
 using OSNB.ViewModels.DataTableViewModels;
 
 namespace OSNB.Controllers
@@ -15,9 +16,13 @@ namespace OSNB.Controllers
 
         public ActionResult Index()
         {
-            ViewBag.Message = "Welcome to Blood Donars Application!";
 
-            return View();
+            var memberZones = _db.MemberZones.ToList().Select(x => new MemberZoneViewModel { Id = x.Id, ZoneName = x.ZoneName });
+            var memberBloodGroups = _db.MemberBloodGroups.ToList().Select(x => new MemberBloodGroupViewModel { Id = x.Id, BloodGroupName = x.BloodGroupName });
+
+            var homePageViewModel = new HomePageViewModel { MemberZoneViewModels = memberZones, MemberBloodGroupViewModels = memberBloodGroups };
+
+            return View(homePageViewModel);
         }
 
         public ActionResult About()
