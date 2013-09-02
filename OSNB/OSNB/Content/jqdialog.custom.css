@@ -74,27 +74,27 @@
 .dialogInformation
 {
     color: #00529B;
-    background: #BDE5F8 url('/Content/Images/icon-info.png') no-repeat;
+    background: #BDE5F8 url('/Content/Images/App/icon-info.png') no-repeat;
     background-position: 20px 10px, top;
 }
 
 .dialogSuccess
 {
     color: #4F8A10;
-    background: #DFF2BF url('/Content/Images/icon-tick.png') no-repeat;
+    background: #DFF2BF url('/Content/Images/App/icon-tick.png') no-repeat;
     background-position: 20px 10px, top;
 }
 
 .dailogWarning
 {
     color: #9F6000;
-    background: #FEEFB3 url('/Content/Images/icon-warning.png') no-repeat;
+    background: #FEEFB3 url('/Content/Images/App/icon-warning.png') no-repeat;
     background-position: 20px 10px, top;
 }
 
 .dailogError
 {
     color: #D8000C;
-    background: #FFBABA url('/Content/Images/icon-cross.png') no-repeat;
+    background: #FFBABA url('/Content/Images/App/icon-cross.png') no-repeat;
     background-position: 20px 10px, top;
 }

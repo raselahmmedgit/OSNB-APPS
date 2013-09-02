@@ -70,7 +70,8 @@ namespace OSNB.Controllers
         {
             var memberBloodGroups = SelectListItemExtension.PopulateDropdownList(_db.MemberBloodGroups.ToList<MemberBloodGroup>(), "Id", "BloodGroupName").ToList();
             var memberDistricts = SelectListItemExtension.PopulateDropdownList(_db.MemberDistricts.ToList<MemberDistrict>(), "Id", "DistrictName").ToList();
-            var registerViewModel = new RegisterViewModel { ddlMemberBloodGroups = memberBloodGroups, ddlMemberDistricts = memberDistricts };
+            var memberHospitals = SelectListItemExtension.PopulateDropdownList(_db.MemberHospitals.ToList<MemberHospital>(), "Id", "HospitalName").ToList();
+            var registerViewModel = new RegisterViewModel { ddlMemberBloodGroups = memberBloodGroups, ddlMemberDistricts = memberDistricts, ddlMemberHospitals = memberHospitals };
 
             return View(registerViewModel);
         }
@@ -81,6 +82,13 @@ namespace OSNB.Controllers
         [HttpPost]
         public ActionResult Register(RegisterViewModel model)
         {
+            var memberBloodGroups = SelectListItemExtension.PopulateDropdownList(_db.MemberBloodGroups.ToList<MemberBloodGroup>(), "Id", "BloodGroupName").ToList();
+            var memberDistricts = SelectListItemExtension.PopulateDropdownList(_db.MemberDistricts.ToList<MemberDistrict>(), "Id", "DistrictName").ToList();
+            var memberHospitals = SelectListItemExtension.PopulateDropdownList(_db.MemberHospitals.ToList<MemberHospital>(), "Id", "HospitalName").ToList();
+            model.ddlMemberBloodGroups = memberBloodGroups;
+            model.ddlMemberDistricts = memberDistricts;
+            model.ddlMemberHospitals = memberHospitals;
+
             if (ModelState.IsValid)
             {
                 // Attempt to register the user
@@ -89,7 +97,7 @@ namespace OSNB.Controllers
 
                 if (createStatus == MembershipCreateStatus.Success)
                 {
-                    OSNB.Models.Member member = new OSNB.Models.Member { FirstName = null, LastName = null, SurName = null, DateOfBirth = null, Address = null, PhoneNumber = null, MobileNumber = null, ThumbImageUrl = null, SmallImageUrl = null, UserName = model.UserName, MemberBloodGroupId = model.MemberBloodGroupId, MemberDistrictId = model.MemberDistrictId };
+                    OSNB.Models.Member member = new OSNB.Models.Member { FirstName = null, LastName = null, SurName = null, DateOfBirth = null, Address = null, PhoneNumber = null, MobileNumber = null, ThumbImageUrl = null, SmallImageUrl = null, UserName = model.UserName, MemberBloodGroupId = model.MemberBloodGroupId, MemberDistrictId = model.MemberDistrictId, MemberHospitalId = model.MemberHospitalId };
 
                     _db.Members.Add(member);
                     _db.SaveChanges();

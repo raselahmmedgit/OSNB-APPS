@@ -40,6 +40,18 @@
             </div>
             @Html.ValidationMessageFor(x => x.RequesterContactNo)
         </div>
+        <!-- RequiredBloodGroupId -->
+        <div class="row-fluid">
+            <div class="span4">
+                <div class="control-label">
+                    @Html.LabelFor(model => model.RequiredBloodGroupId)
+                </div>
+            </div>
+            <div class="span8">
+                @Html.DropDownList("RequiredBloodGroupId", Model.ddlMemberBloodGroups)
+            </div>
+            @Html.ValidationMessageFor(x => x.RequiredBloodGroupId)
+        </div>
         <!-- RequesterAmount -->
         <div class="row-fluid">
             <div class="span4">
@@ -104,4 +116,3 @@
         </div>
     }
 </div>
-

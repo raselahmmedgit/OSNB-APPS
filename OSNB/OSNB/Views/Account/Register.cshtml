@@ -61,6 +61,11 @@
                 @Html.DropDownList("MemberDistrictId", Model.ddlMemberDistricts)
                 @Html.ValidationMessageFor(m => m.MemberDistrictId)
             </div>
+            <div class="span12">
+                @Html.LabelFor(model => model.MemberHospitalId)
+                @Html.DropDownList("MemberHospitalId", Model.ddlMemberHospitals)
+                @Html.ValidationMessageFor(m => m.MemberHospitalId)
+            </div>
         </fieldset>
     </div>
     <br />

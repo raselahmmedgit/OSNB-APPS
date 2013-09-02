@@ -42,5 +42,10 @@ namespace OSNB.ViewModels
         public string MemberDistrictName { get; set; }
         public virtual MemberDistrictViewModel MemberDistrictViewModel { get; set; }
         public IEnumerable<SelectListItem> ddlMemberDistricts { get; set; }
+
+        public int MemberHospitalId { get; set; }
+        public string MemberHospitalName { get; set; }
+        public virtual MemberHospitalViewModel MemberHospitalViewModel { get; set; }
+        public IEnumerable<SelectListItem> ddlMemberHospitals { get; set; }
     }
 }
