@@ -55,6 +55,74 @@ namespace OSNB.Controllers
                             JsonRequestBehavior.AllowGet);
         }
 
+        // for display datatable
+        public ActionResult GetDonarByBloodGroupList(int id)
+        {
+            var members = _db.Members.ToList().Where(x => x.MemberBloodGroupId == id);
+
+            var viewMembers = members.Select(m => new MemberTableModel() { MemberId = Convert.ToString(m.Id), FullName = m.FullName, Address = m.Address, DateOfBirth = Convert.ToString(m.DateOfBirth), PhoneNumber = m.PhoneNumber, MobileNumber = m.MobileNumber, UserName = m.UserName, });
+
+            IEnumerable<MemberTableModel> filteredMembers;
+
+            //if (!string.IsNullOrEmpty(param.sSearch))
+            //{
+            //    filteredMembers = viewMembers.Where(m => (m.FullName ?? "").Contains(param.sSearch)).ToList();
+            //}
+            //else
+            //{
+            filteredMembers = viewMembers;
+            //}
+
+            //var viewOdjects = filteredMembers.Skip(param.iDisplayStart).Take(param.iDisplayLength);
+            var viewOdjects = filteredMembers;
+
+            var result = from pMdl in viewOdjects
+                         select new[] { pMdl.FullName, pMdl.Address, pMdl.DateOfBirth, pMdl.PhoneNumber, pMdl.MobileNumber, pMdl.UserName, pMdl.MemberId };
+
+            return Json(new
+            {
+                //sEcho = param.sEcho,
+                iTotalRecords = members.Count(),
+                iTotalDisplayRecords = filteredMembers.Count(),
+                aaData = result
+            },
+                            JsonRequestBehavior.AllowGet);
+        }
+
+        // for display datatable
+        public ActionResult GetDonarByZoneList(int id)
+        {
+            var members = _db.Members.ToList().Where(x => x.MemberZoneId == id);
+
+            var viewMembers = members.Select(m => new MemberTableModel() { MemberId = Convert.ToString(m.Id), FullName = m.FullName, Address = m.Address, DateOfBirth = Convert.ToString(m.DateOfBirth), PhoneNumber = m.PhoneNumber, MobileNumber = m.MobileNumber, UserName = m.UserName, });
+
+            IEnumerable<MemberTableModel> filteredMembers;
+
+            //if (!string.IsNullOrEmpty(param.sSearch))
+            //{
+            //    filteredMembers = viewMembers.Where(m => (m.FullName ?? "").Contains(param.sSearch)).ToList();
+            //}
+            //else
+            //{
+            filteredMembers = viewMembers;
+            //}
+
+            //var viewOdjects = filteredMembers.Skip(param.iDisplayStart).Take(param.iDisplayLength);
+            var viewOdjects = filteredMembers;
+
+            var result = from pMdl in viewOdjects
+                         select new[] { pMdl.FullName, pMdl.Address, pMdl.DateOfBirth, pMdl.PhoneNumber, pMdl.MobileNumber, pMdl.UserName, pMdl.MemberId };
+
+            return Json(new
+            {
+                //sEcho = param.sEcho,
+                iTotalRecords = members.Count(),
+                iTotalDisplayRecords = filteredMembers.Count(),
+                aaData = result
+            },
+                            JsonRequestBehavior.AllowGet);
+        }
+
         //SendEmail
         public ActionResult SendEmail(int id)
         {

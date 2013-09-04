@@ -319,12 +319,13 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
     <Content Include="Global.asax" />
-    <Content Include="Images\calendar.gif" />
-    <Content Include="Images\dhakacity.jpg" />
+    <Content Include="Content\Images\App\calendar.gif" />
     <Content Include="README.jQuery.vsdoc.txt" />
     <Content Include="Scripts\App\app-jq.js" />
     <Content Include="Scripts\App\comment-jq.js" />
     <Content Include="Scripts\App\bloodrequest-jq.js" />
+    <Content Include="Scripts\App\bloodgroupinfo-jq.js" />
+    <Content Include="Scripts\App\zoneinfo-jq.js" />
     <Content Include="Scripts\App\donar-jq.js" />
     <Content Include="Scripts\App\homepage-jq.js" />
     <Content Include="Scripts\App\member-jq.js" />
@@ -440,6 +441,7 @@
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Areas\Member\Models\" />
     <Folder Include="Areas\Member\Views\Shared\" />
+    <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -543,6 +545,8 @@
     <Content Include="Views\BloodRequest\Index.cshtml" />
     <Content Include="Views\BloodRequest\ForBlood.cshtml" />
     <Content Include="Views\BloodRequest\_Details.cshtml" />
+    <Content Include="Views\Home\ZoneInfo.cshtml" />
+    <Content Include="Views\Home\BloodGroupInfo.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

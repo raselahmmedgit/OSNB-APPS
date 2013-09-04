@@ -63,6 +63,26 @@ namespace OSNB.Controllers
                             JsonRequestBehavior.AllowGet);
         }
 
+        //ZoneInfo
+        public ActionResult ZoneInfo(int id)
+        {
 
+            var memberZone = _db.MemberZones.Find(id);
+
+            var memberZoneViewModel = new MemberZoneViewModel { Id = memberZone.Id, ZoneName = memberZone.ZoneName };
+
+            return View(memberZoneViewModel);
+        }
+
+        //BloodGroupInfo
+        public ActionResult BloodGroupInfo(int id)
+        {
+
+            var memberBloodGroup = _db.MemberBloodGroups.Find(id);
+
+            var memberBloodGroupViewModel = new MemberBloodGroupViewModel { Id = memberBloodGroup.Id, BloodGroupName = memberBloodGroup.BloodGroupName };
+
+            return View(memberBloodGroupViewModel);
+        }
     }
 }

@@ -2,7 +2,7 @@
 $(function () {
     $(".datePicker").datepicker({
         showOn: "button",
-        buttonImage: "/Images/calendar.gif",
+        buttonImage: "/Images/App/calendar.gif",
         buttonImageOnly: true
     });
 });
