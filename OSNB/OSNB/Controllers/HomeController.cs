@@ -84,5 +84,27 @@ namespace OSNB.Controllers
 
             return View(memberBloodGroupViewModel);
         }
+
+        //ZoneDetails
+        public ActionResult ZoneDetails(string id)
+        {
+            var memberZone = _db.MemberZones.ToList().SingleOrDefault(x => x.ZoneName == id);
+
+            var memberZoneViewModel = new MemberZoneViewModel();
+
+            if (memberZone != null)
+            {
+                memberZoneViewModel = new MemberZoneViewModel { Id = memberZone.Id, ZoneName = memberZone.ZoneName };
+
+                return View(memberZoneViewModel);
+            }
+            return View(memberZoneViewModel);
+        }
+
+        //Map
+        public ActionResult Map()
+        {
+            return View();
+        }
     }
 }

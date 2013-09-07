@@ -547,6 +547,8 @@
     <Content Include="Views\BloodRequest\_Details.cshtml" />
     <Content Include="Views\Home\ZoneInfo.cshtml" />
     <Content Include="Views\Home\BloodGroupInfo.cshtml" />
+    <Content Include="Views\Home\ZoneDetails.cshtml" />
+    <Content Include="Views\Home\Map.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

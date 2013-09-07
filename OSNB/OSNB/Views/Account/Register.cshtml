@@ -27,44 +27,52 @@
         <fieldset>
             <legend>Account Information</legend>
             <div class="span12">
-                @Html.LabelFor(model => model.UserName)
-                @Html.TextBoxFor(m => m.UserName)
-                @Html.ValidationMessageFor(m => m.UserName)
+                <div class="span6">
+                    @Html.LabelFor(model => model.UserName)
+                    @Html.TextBoxFor(m => m.UserName)
+                    @Html.ValidationMessageFor(m => m.UserName)
+                </div>
+                <div class="span6">
+                    @Html.LabelFor(model => model.Email)
+                    @Html.TextBoxFor(m => m.Email)
+                    @Html.ValidationMessageFor(m => m.Email)
+                </div>
             </div>
             <div class="span12">
-                @Html.LabelFor(model => model.Email)
-                @Html.TextBoxFor(m => m.Email)
-                @Html.ValidationMessageFor(m => m.Email)
+                <div class="span6">
+                    @Html.LabelFor(model => model.Password)
+                    @Html.PasswordFor(m => m.Password)
+                    @Html.ValidationMessageFor(m => m.Password)
+                </div>
+                <div class="span6">
+                    @Html.LabelFor(model => model.ConfirmPassword)
+                    @Html.PasswordFor(m => m.ConfirmPassword)
+                    @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                </div>
             </div>
             <div class="span12">
-                @Html.LabelFor(model => model.Password)
-                @Html.PasswordFor(m => m.Password)
-                @Html.ValidationMessageFor(m => m.Password)
+                <div class="span6">
+                    @Html.LabelFor(model => model.ContactNo)
+                    @Html.TextBoxFor(m => m.ContactNo)
+                    @Html.ValidationMessageFor(m => m.ContactNo)
+                </div>
+                <div class="span6">
+                    @Html.LabelFor(model => model.MemberBloodGroupId)
+                    @Html.DropDownList("MemberBloodGroupId", Model.ddlMemberBloodGroups)
+                    @Html.ValidationMessageFor(m => m.MemberBloodGroupId)
+                </div>
             </div>
             <div class="span12">
-                @Html.LabelFor(model => model.ConfirmPassword)
-                @Html.PasswordFor(m => m.ConfirmPassword)
-                @Html.ValidationMessageFor(m => m.ConfirmPassword)
-            </div>
-            <div class="span12">
-                @Html.LabelFor(model => model.ContactNo)
-                @Html.TextBoxFor(m => m.ContactNo)
-                @Html.ValidationMessageFor(m => m.ContactNo)
-            </div>
-            <div class="span12">
-                @Html.LabelFor(model => model.MemberBloodGroupId)
-                @Html.DropDownList("MemberBloodGroupId", Model.ddlMemberBloodGroups)
-                @Html.ValidationMessageFor(m => m.MemberBloodGroupId)
-            </div>
-            <div class="span12">
-                @Html.LabelFor(model => model.MemberDistrictId)
-                @Html.DropDownList("MemberDistrictId", Model.ddlMemberDistricts)
-                @Html.ValidationMessageFor(m => m.MemberDistrictId)
-            </div>
-            <div class="span12">
-                @Html.LabelFor(model => model.MemberHospitalId)
-                @Html.DropDownList("MemberHospitalId", Model.ddlMemberHospitals)
-                @Html.ValidationMessageFor(m => m.MemberHospitalId)
+                <div class="span6">
+                    @Html.LabelFor(model => model.MemberDistrictId)
+                    @Html.DropDownList("MemberDistrictId", Model.ddlMemberDistricts)
+                    @Html.ValidationMessageFor(m => m.MemberDistrictId)
+                </div>
+                <div class="span6">
+                    @Html.LabelFor(model => model.MemberHospitalId)
+                    @Html.DropDownList("MemberHospitalId", Model.ddlMemberHospitals)
+                    @Html.ValidationMessageFor(m => m.MemberHospitalId)
+                </div>
             </div>
         </fieldset>
     </div>
