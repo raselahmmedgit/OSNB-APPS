@@ -19,6 +19,11 @@ namespace OSNB.Areas.Member.Controllers
 
         public ActionResult Index()
         {
+            return View("Index");
+        }
+
+        public ActionResult Details()
+        {
             try
             {
                 var currentUser = _db.Users.Find(User.Identity.Name);
@@ -34,14 +39,14 @@ namespace OSNB.Areas.Member.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Member");
                 }
 
             }
             catch (Exception ex)
             {
                 ExceptionHelper.ExceptionMessageFormat(ex, true);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Member");
             }
         }
 

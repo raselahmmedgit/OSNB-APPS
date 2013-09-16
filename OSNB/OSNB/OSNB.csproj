@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminBloodRequestController.cs" />
     <Compile Include="Areas\Admin\Controllers\CommentController.cs" />
     <Compile Include="Areas\Admin\Controllers\MemberBloodGroupController.cs" />
     <Compile Include="Areas\Admin\Controllers\MemberController.cs" />
@@ -325,6 +326,8 @@
     <Content Include="Scripts\App\comment-jq.js" />
     <Content Include="Scripts\App\bloodrequest-jq.js" />
     <Content Include="Scripts\App\bloodgroupinfo-jq.js" />
+    <Content Include="Scripts\App\bloodrequest-admin-jq.js" />
+    <Content Include="Scripts\App\sendemail-jq.js" />
     <Content Include="Scripts\App\zoneinfo-jq.js" />
     <Content Include="Scripts\App\donar-jq.js" />
     <Content Include="Scripts\App\homepage-jq.js" />
@@ -525,6 +528,9 @@
     <Content Include="Areas\Admin\Views\User\_AssignRole.cshtml" />
     <Content Include="Areas\Admin\Views\User\AddMember.cshtml" />
     <Content Include="Areas\Member\Views\Member\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminBloodRequest\Index.cshtml" />
+    <Content Include="Areas\Member\Views\Member\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminBloodRequest\_Details.cshtml" />
     <None Include="ClassDiagram1.cd" />
     <None Include="Content\DataTables-1.9.4\extras\TableTools\media\images\psd\collection.psd" />
     <None Include="Content\DataTables-1.9.4\extras\TableTools\media\images\psd\copy document.psd" />

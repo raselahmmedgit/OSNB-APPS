@@ -1,8 +1,8 @@
 ﻿<ul class="nav">
-    <li class="active"><a href="/Home/Index">Home</a></li>
-    <li><a href="/Donar/Index">Donars List</a></li>
-    <li><a href="/BloodRequest/Index">Blood Request List</a></li>
-    <li><a href="/BloodRequest/ForBlood">Request For Blood</a></li>
+    <li class="active"><a href="@Url.Action("Index", "Home", null)">Home</a></li>
+    <li><a href="@Url.Action("Index", "Donar", null)">Donars List</a></li>
+    <li><a href="@Url.Action("Index", "BloodRequest", null)">Blood Request List</a></li>
+    <li><a href="@Url.Action("ForBlood", "BloodRequest", null)">Request For Blood</a></li>
     @*<li><a href="#">Blog</a></li>*@
     @if (Request.IsAuthenticated)
     {
@@ -11,31 +11,36 @@
         <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin
             <b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li><a href="/Admin/Role">Role</a></li>
-                <li><a href="/Admin/User">User</a></li>
-                <li><a href="/Admin/Member">Member</a></li>
-                <li><a href="/Admin/MemberDistrict">Member District</a></li>
-                <li><a href="/Admin/MemberBloodGroup">Member Blood Group</a></li>
-                <li><a href="/Admin/MemberDonateType">Member Donate Type</a></li>
-                <li><a href="/Admin/MemberDonateWay">Member Donate Way</a></li>
-                <li><a href="/Admin/MemberHospital">Member Hospital</a></li>
-                <li><a href="/Admin/MemberStatus">Member Status</a></li>
-                <li><a href="/Admin/MemberZone">Member Zone</a></li>
-                <li><a href="/Admin/BloodRequest">Blood Request</a></li>
-                <li><a href="/Admin/SendEmail">Send Email</a></li>
-                <li><a href="/Admin/Post">Post</a></li>
-                <li><a href="/Admin/Comment">Comment</a></li>
+                <li><a href="@Url.Action("Index", "Role", new { @area = "Admin" })">Role</a></li>
+                <li><a href="@Url.Action("Index", "User", new { @area = "Admin" })">User</a></li>
+                <li><a href="@Url.Action("Index", "Member", new { @area = "Admin" })">Member</a></li>
+                <li><a href="@Url.Action("Index", "MemberDistrict", new { @area = "Admin" })">Member
+                    District</a></li>
+                <li><a href="@Url.Action("Index", "MemberBloodGroup", new { @area = "Admin" })">Member
+                    Blood Group</a></li>
+                <li><a href="@Url.Action("Index", "MemberDonateType", new { @area = "Admin" })">Member
+                    Donate Type</a></li>
+                <li><a href="@Url.Action("Index", "MemberDonateWay", new { @area = "Admin" })">Member
+                    Donate Way</a></li>
+                <li><a href="@Url.Action("Index", "MemberHospital", new { @area = "Admin" })">Member
+                    Hospital</a></li>
+                <li><a href="@Url.Action("Index", "MemberStatus", new { @area = "Admin" })">Member Status</a></li>
+                <li><a href="@Url.Action("Index", "MemberZone", new { @area = "Admin" })">Member Zone</a></li>
+                <li><a href="@Url.Action("Index", "AdminBloodRequest", new { @area = "Admin" })">Blood Request</a></li>
+                <li><a href="@Url.Action("Index", "SendEmail", new { @area = "Admin" })">Send Email</a></li>
+                <li><a href="@Url.Action("Index", "Post", new { @area = "Admin" })">Post</a></li>
+                <li><a href="@Url.Action("Index", "Comment", new { @area = "Admin" })">Comment</a></li>
             </ul>
         </li>
         }
         <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Member
             <b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li><a href="/Member/Member">Member</a></li>
-                @*<li><a href="/Member/RequestToMe">Request To Me</a></li>
-            <li><a href="/Member/RequestForMe">Request For Me</a></li>*@
-                <li><a href="/Member/Post">Post</a></li>
-                <li><a href="/Member/Comment">Comment</a></li>
+                <li><a href="@Url.Action("Index", "Member", new { @area = "Member" })">Member</a></li>
+                @*<li><a href="@Url.Action("Index", "RequestToMe", new { @area = "Member" })">Request To Me</a></li>
+            <li><a href="@Url.Action("Index", "RequestForMe", new { @area = "Member" })">Request For Me</a></li>*@
+                <li><a href="@Url.Action("Index", "Post", new { @area = "Member" })">Post</a></li>
+                <li><a href="@Url.Action("Index", "Comment", new { @area = "Member" })">Comment</a></li>
             </ul>
         </li>
     }
