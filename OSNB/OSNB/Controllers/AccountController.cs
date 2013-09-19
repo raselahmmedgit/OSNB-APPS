@@ -97,7 +97,7 @@ namespace OSNB.Controllers
 
                 if (createStatus == MembershipCreateStatus.Success)
                 {
-                    OSNB.Models.Member member = new OSNB.Models.Member { FirstName = null, LastName = null, SurName = null, DateOfBirth = null, Address = null, PhoneNumber = null, MobileNumber = null, ThumbImageUrl = null, SmallImageUrl = null, UserName = model.UserName, MemberBloodGroupId = model.MemberBloodGroupId, MemberDistrictId = model.MemberDistrictId, MemberHospitalId = model.MemberHospitalId };
+                    OSNB.Models.Member member = new OSNB.Models.Member { FirstName = null, LastName = null, SurName = null, DateOfBirth = null, Address = null, PhoneNumber = null, MobileNumber = null, ThumbImageUrl = null, SmallImageUrl = null, UserName = model.UserName, MemberBloodGroupId = model.MemberBloodGroupId, MemberDistrictId = model.MemberDistrictId, MemberHospitalId = model.MemberHospitalId, MemberZoneId = 1};
 
                     _db.Members.Add(member);
                     _db.SaveChanges();
