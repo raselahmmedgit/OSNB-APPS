@@ -350,6 +350,9 @@ $(function () {
         var dialogDiv = $('#assignRoleUserDailog');
         var viewUrl = linkObj.attr('href');
         $.get(viewUrl, function (data) {
+
+            console.log(data);
+
             dialogDiv.html(data);
             //validation
             var $form = $("#assignRoleUserForm");

@@ -70,8 +70,9 @@ namespace OSNB.Controllers
         {
             var memberBloodGroups = SelectListItemExtension.PopulateDropdownList(_db.MemberBloodGroups.ToList<MemberBloodGroup>(), "Id", "BloodGroupName").ToList();
             var memberDistricts = SelectListItemExtension.PopulateDropdownList(_db.MemberDistricts.ToList<MemberDistrict>(), "Id", "DistrictName").ToList();
+            var memberZones = new List<SelectListItem>() { new SelectListItem() { Selected = true, Text = "- Select -", Value = "0" } }.ToList();
             var memberHospitals = SelectListItemExtension.PopulateDropdownList(_db.MemberHospitals.ToList<MemberHospital>(), "Id", "HospitalName").ToList();
-            var registerViewModel = new RegisterViewModel { ddlMemberBloodGroups = memberBloodGroups, ddlMemberDistricts = memberDistricts, ddlMemberHospitals = memberHospitals };
+            var registerViewModel = new RegisterViewModel { ddlMemberBloodGroups = memberBloodGroups, ddlMemberDistricts = memberDistricts, ddlMemberHospitals = memberHospitals, ddlMemberZones = memberZones };
 
             return View(registerViewModel);
         }
@@ -84,9 +85,11 @@ namespace OSNB.Controllers
         {
             var memberBloodGroups = SelectListItemExtension.PopulateDropdownList(_db.MemberBloodGroups.ToList<MemberBloodGroup>(), "Id", "BloodGroupName").ToList();
             var memberDistricts = SelectListItemExtension.PopulateDropdownList(_db.MemberDistricts.ToList<MemberDistrict>(), "Id", "DistrictName").ToList();
+            var memberZones = new List<SelectListItem>() { new SelectListItem() { Selected = true, Text = "- Select -", Value = "0" } }.ToList();
             var memberHospitals = SelectListItemExtension.PopulateDropdownList(_db.MemberHospitals.ToList<MemberHospital>(), "Id", "HospitalName").ToList();
             model.ddlMemberBloodGroups = memberBloodGroups;
             model.ddlMemberDistricts = memberDistricts;
+            model.ddlMemberZones = memberZones;
             model.ddlMemberHospitals = memberHospitals;
 
             if (ModelState.IsValid)
@@ -97,7 +100,7 @@ namespace OSNB.Controllers
 
                 if (createStatus == MembershipCreateStatus.Success)
                 {
-                    OSNB.Models.Member member = new OSNB.Models.Member { FirstName = null, LastName = null, SurName = null, DateOfBirth = null, Address = null, PhoneNumber = null, MobileNumber = null, ThumbImageUrl = null, SmallImageUrl = null, UserName = model.UserName, MemberBloodGroupId = model.MemberBloodGroupId, MemberDistrictId = model.MemberDistrictId, MemberHospitalId = model.MemberHospitalId, MemberZoneId = 1};
+                    OSNB.Models.Member member = new OSNB.Models.Member { FirstName = null, LastName = null, SurName = null, DateOfBirth = null, Address = null, PhoneNumber = null, MobileNumber = null, ThumbImageUrl = null, SmallImageUrl = null, UserName = model.UserName, MemberBloodGroupId = model.MemberBloodGroupId, MemberDistrictId = model.MemberDistrictId, MemberHospitalId = model.MemberHospitalId, MemberZoneId = model.MemberZoneId };
 
                     _db.Members.Add(member);
                     _db.SaveChanges();
@@ -114,6 +117,18 @@ namespace OSNB.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+        //GetMemberZones
+        public ActionResult GetMemberZones(int id)
+        {
+            var memberDistrict = _db.MemberDistricts.Find(id);
+            var memberZoneList = _db.MemberZones.Where(x => x.MemberDistrictId == memberDistrict.Id).ToList();
+            var memberZones = SelectListItemExtension.PopulateDropdownList(memberZoneList.ToList<MemberZone>(), "Id", "ZoneName").ToList();
+
+            return PartialView("_ZoneList", memberZones);
+
+        }
+
 
         //
         // GET: /Account/ChangePassword
