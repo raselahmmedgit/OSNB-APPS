@@ -27,21 +27,28 @@ namespace OSNB.Areas.Member.Controllers
             try
             {
                 var currentUser = _db.Users.Find(User.Identity.Name);
-                int id = Convert.ToInt16(currentUser.MemberId);
-                var member = _db.Members.Find(id);
-                if (member != null)
+                var currentMember = _db.Members.SingleOrDefault(x => x.UserName == currentUser.UserName);
+                if (currentMember != null)
                 {
-                    var user = _db.Users.Find(member.UserName);
+                    int id = Convert.ToInt16(currentMember.Id);
+                    var member = _db.Members.Find(id);
+                    if (member != null)
+                    {
+                        var user = _db.Users.Find(member.UserName);
 
-                    var memberViewModel = new CreateOrEditMemberViewModel { MemberId = member.Id, UserName = user.UserName, UserEmail = user.Email, FirstName = member.FirstName, LastName = member.LastName, SurName = member.SurName, DateOfBirth = member.DateOfBirth, Address = member.Address, PhoneNumber = member.PhoneNumber, MobileNumber = member.MobileNumber, ThumbImageUrl = member.ThumbImageUrl, SmallImageUrl = member.SmallImageUrl, MemberBloodGroupName = member.MemberBloodGroup != null ? member.MemberBloodGroup.BloodGroupName : null, MemberDistrictName = member.MemberDistrict != null ? member.MemberDistrict.DistrictName : null, MemberZoneName = member.MemberZone != null ? member.MemberZone.ZoneName : null, MemberHospitalName = member.MemberHospital != null ? member.MemberHospital.HospitalName : null };
+                        var memberViewModel = new CreateOrEditMemberViewModel { MemberId = member.Id, UserName = user.UserName, UserEmail = user.Email, FirstName = member.FirstName, LastName = member.LastName, SurName = member.SurName, DateOfBirth = member.DateOfBirth, Address = member.Address, PhoneNumber = member.PhoneNumber, MobileNumber = member.MobileNumber, ThumbImageUrl = member.ThumbImageUrl, SmallImageUrl = member.SmallImageUrl, MemberBloodGroupName = member.MemberBloodGroup != null ? member.MemberBloodGroup.BloodGroupName : null, MemberDistrictName = member.MemberDistrict != null ? member.MemberDistrict.DistrictName : null, MemberZoneName = member.MemberZone != null ? member.MemberZone.ZoneName : null, MemberHospitalName = member.MemberHospital != null ? member.MemberHospital.HospitalName : null };
 
-                    return View(memberViewModel);
+                        return View(memberViewModel);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Member");
+                    }
                 }
                 else
                 {
                     return RedirectToAction("Index", "Member");
                 }
-
             }
             catch (Exception ex)
             {

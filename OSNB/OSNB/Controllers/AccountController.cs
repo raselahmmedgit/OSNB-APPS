@@ -100,7 +100,7 @@ namespace OSNB.Controllers
 
                 if (createStatus == MembershipCreateStatus.Success)
                 {
-                    OSNB.Models.Member member = new OSNB.Models.Member { FirstName = null, LastName = null, SurName = null, DateOfBirth = null, Address = null, PhoneNumber = null, MobileNumber = null, ThumbImageUrl = null, SmallImageUrl = null, UserName = model.UserName, MemberBloodGroupId = model.MemberBloodGroupId, MemberDistrictId = model.MemberDistrictId, MemberHospitalId = model.MemberHospitalId, MemberZoneId = model.MemberZoneId };
+                    OSNB.Models.Member member = new OSNB.Models.Member { FirstName = model.UserName, LastName = null, SurName = model.UserName, DateOfBirth = null, Address = null, PhoneNumber = null, MobileNumber = model.ContactNo, ThumbImageUrl = null, SmallImageUrl = null, UserName = model.UserName, MemberBloodGroupId = model.MemberBloodGroupId, MemberDistrictId = model.MemberDistrictId, MemberHospitalId = model.MemberHospitalId, MemberZoneId = model.MemberZoneId };
 
                     _db.Members.Add(member);
                     _db.SaveChanges();
@@ -122,10 +122,18 @@ namespace OSNB.Controllers
         public ActionResult GetMemberZones(int id)
         {
             var memberDistrict = _db.MemberDistricts.Find(id);
-            var memberZoneList = _db.MemberZones.Where(x => x.MemberDistrictId == memberDistrict.Id).ToList();
-            var memberZones = SelectListItemExtension.PopulateDropdownList(memberZoneList.ToList<MemberZone>(), "Id", "ZoneName").ToList();
+            var memberZones = new List<SelectListItem>() { new SelectListItem() { Selected = true, Text = "- Select -", Value = "0" } }.ToList();
+            if (memberDistrict != null)
+            {
+                var memberZoneList = _db.MemberZones.Where(x => x.MemberDistrictId == memberDistrict.Id).ToList();
+                memberZones = SelectListItemExtension.PopulateDropdownList(memberZoneList.ToList<MemberZone>(), "Id", "ZoneName").ToList();
 
-            return PartialView("_ZoneList", memberZones);
+                return PartialView("_ZoneList", memberZones);
+            }
+            else
+            {
+                return PartialView("_ZoneList", memberZones);
+            }
 
         }
 
