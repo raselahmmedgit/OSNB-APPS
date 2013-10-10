@@ -144,7 +144,8 @@ namespace OSNB.Areas.Admin.Controllers
                     _db.Entry(member).State = EntityState.Modified;
                     _db.SaveChanges();
 
-                    return Content(Boolean.TrueString);
+                    return RedirectToAction("Index", "Member");
+                    //return Content(Boolean.TrueString);
                 }
 
                 return Content(ExceptionHelper.ModelStateErrorFormat(ModelState));

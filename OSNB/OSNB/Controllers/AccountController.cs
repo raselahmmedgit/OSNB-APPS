@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -100,6 +101,12 @@ namespace OSNB.Controllers
 
                 if (createStatus == MembershipCreateStatus.Success)
                 {
+                    OSNB.Models.User user = _db.Users.Find(model.UserName);
+                    OSNB.Models.Role role = _db.Roles.Find("User");
+                    user.Roles = new List<Role> { role };
+
+                    _db.Entry(user).State = EntityState.Modified;
+
                     OSNB.Models.Member member = new OSNB.Models.Member { FirstName = model.UserName, LastName = null, SurName = model.UserName, DateOfBirth = null, Address = null, PhoneNumber = null, MobileNumber = model.ContactNo, ThumbImageUrl = null, SmallImageUrl = null, UserName = model.UserName, MemberBloodGroupId = model.MemberBloodGroupId, MemberDistrictId = model.MemberDistrictId, MemberHospitalId = model.MemberHospitalId, MemberZoneId = model.MemberZoneId };
 
                     _db.Members.Add(member);
