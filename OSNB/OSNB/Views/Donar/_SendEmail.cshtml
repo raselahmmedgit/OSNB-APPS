@@ -1,5 +1,5 @@
 ﻿@model OSNB.ViewModels.SendEmailInfoViewModel
-@using (Ajax.BeginForm("SendEmail", "MemberZone", null,
+@using (Ajax.BeginForm("SendEmail", "Donar", null,
         new AjaxOptions
         {
             UpdateTargetId = "updateTargetId",
@@ -20,7 +20,7 @@
         <div class="row-fluid">
             <div class="span12">
                 <h4>
-                    Sen Email To: @Html.DisplayFor(model => model.MemberName)
+                    Send Email To: @Html.DisplayFor(model => model.MemberName)
                 </h4>
                 @Html.HiddenFor(model => model.MemberViewModelId)
             </div>

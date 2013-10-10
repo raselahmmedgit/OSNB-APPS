@@ -161,7 +161,8 @@ namespace OSNB.Controllers
                     var sendEmailInfo = new SendEmailInfo { SenderName = viewModel.SenderName, SenderContactNo = viewModel.SenderContactNo, Subject = viewModel.Subject, Message = viewModel.Message, MemberId = viewModel.MemberViewModelId };
 
                     var member = _db.Members.Find(viewModel.MemberViewModelId);
-                    var toEmail = member.User != null ? member.User.Email : null;
+                    var user = _db.Users.Find(member.UserName);
+                    var toEmail = user != null ? user.Email : null;
                     var body = viewModel.Message + "Contact No: " + viewModel.SenderContactNo;
 
                     SendMailHelper sendMailHelper = new SendMailHelper();

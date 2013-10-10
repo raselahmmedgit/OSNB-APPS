@@ -6,10 +6,10 @@ function SendEmailDonarSuccess() {
     if ($("#updateTargetId").html() == "True") {
 
         //now we can close the dialog
-        $('#deleteDonarDailog').dialog('close');
+        $('#sendEmailDonarDailog').dialog('close');
 
         //JQDialogAlert mass, status
-        JQDialogAlert("Donar deleted successfully.", "dialogSuccess");
+        JQDialogAlert("Send Email successfully.", "dialogSuccess");
 
         donarObjData.fnDraw();
 
