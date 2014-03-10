@@ -27,13 +27,13 @@ namespace OSNB.Controllers
         {
             var members = _db.Members.ToList();
 
-            var viewMembers = members.Select(m => new MemberTableModel() { MemberId = Convert.ToString(m.Id), FullName = m.FullName, Address = m.Address, DateOfBirth = Convert.ToString(m.DateOfBirth), PhoneNumber = m.PhoneNumber, MobileNumber = m.MobileNumber, UserName = m.UserName, });
+            var viewMembers = members.Select(m => new MemberTableModel() { MemberId = Convert.ToString(m.Id), FullName = m.FullName, Address = m.Address, MemberBloodGroupName = m.MemberBloodGroup != null ? m.MemberBloodGroup.BloodGroupName : null, DateOfBirth = Convert.ToString(m.DateOfBirth), PhoneNumber = m.PhoneNumber, MobileNumber = m.MobileNumber, UserName = m.UserName, });
 
             IEnumerable<MemberTableModel> filteredMembers;
 
             if (!string.IsNullOrEmpty(param.sSearch))
             {
-                filteredMembers = viewMembers.Where(m => (m.FullName ?? "").Contains(param.sSearch)).ToList();
+                filteredMembers = viewMembers.Where(m => (m.FullName ?? "").Contains(param.sSearch) || (m.LastName ?? "").Contains(param.sSearch) || (m.Address ?? "").Contains(param.sSearch) || (m.MemberBloodGroupName ?? "").Contains(param.sSearch)).ToList();
             }
             else
             {
@@ -43,7 +43,7 @@ namespace OSNB.Controllers
             var viewOdjects = filteredMembers.Skip(param.iDisplayStart).Take(param.iDisplayLength);
 
             var result = from pMdl in viewOdjects
-                         select new[] { pMdl.FullName, pMdl.Address, pMdl.DateOfBirth, pMdl.PhoneNumber, pMdl.MobileNumber, pMdl.UserName, pMdl.MemberId };
+                         select new[] { pMdl.FullName, pMdl.Address, pMdl.MemberBloodGroupName, pMdl.DateOfBirth, pMdl.PhoneNumber, pMdl.MobileNumber, pMdl.UserName, pMdl.MemberId };
 
             return Json(new
             {
@@ -56,7 +56,7 @@ namespace OSNB.Controllers
         }
 
         // for display datatable
-        public ActionResult GetDonarByBloodGroupList(int id)
+        public ActionResult GetDonarByBloodGroupList(int id, DataTableParamModel param)
         {
             var members = _db.Members.ToList().Where(x => x.MemberBloodGroupId == id);
 
@@ -64,14 +64,14 @@ namespace OSNB.Controllers
 
             IEnumerable<MemberTableModel> filteredMembers;
 
-            //if (!string.IsNullOrEmpty(param.sSearch))
-            //{
-            //    filteredMembers = viewMembers.Where(m => (m.FullName ?? "").Contains(param.sSearch)).ToList();
-            //}
-            //else
-            //{
-            filteredMembers = viewMembers;
-            //}
+            if (!string.IsNullOrEmpty(param.sSearch))
+            {
+                filteredMembers = viewMembers.Where(m => (m.FullName ?? "").Contains(param.sSearch)).ToList();
+            }
+            else
+            {
+                filteredMembers = viewMembers;
+            }
 
             //var viewOdjects = filteredMembers.Skip(param.iDisplayStart).Take(param.iDisplayLength);
             var viewOdjects = filteredMembers;
@@ -90,7 +90,7 @@ namespace OSNB.Controllers
         }
 
         // for display datatable
-        public ActionResult GetDonarByZoneList(int id)
+        public ActionResult GetDonarByZoneList(int id, DataTableParamModel param)
         {
             var members = _db.Members.ToList().Where(x => x.MemberZoneId == id);
 
@@ -98,14 +98,14 @@ namespace OSNB.Controllers
 
             IEnumerable<MemberTableModel> filteredMembers;
 
-            //if (!string.IsNullOrEmpty(param.sSearch))
-            //{
-            //    filteredMembers = viewMembers.Where(m => (m.FullName ?? "").Contains(param.sSearch)).ToList();
-            //}
-            //else
-            //{
-            filteredMembers = viewMembers;
-            //}
+            if (!string.IsNullOrEmpty(param.sSearch))
+            {
+                filteredMembers = viewMembers.Where(m => (m.FullName ?? "").Contains(param.sSearch)).ToList();
+            }
+            else
+            {
+                filteredMembers = viewMembers;
+            }
 
             //var viewOdjects = filteredMembers.Skip(param.iDisplayStart).Take(param.iDisplayLength);
             var viewOdjects = filteredMembers;

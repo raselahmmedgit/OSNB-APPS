@@ -47,18 +47,19 @@ $(function () {
         "aoColumns": [
             { "sName": "FullName" },
             { "sName": "Address" },
+            { "sName": "MemberBloodGroupName" },
             { "sName": "DateOfBirth" },
             { "sName": "PhoneNumber" },
             { "sName": "MobileNumber" },
             { "sName": "Actions",
                 "bSearchable": false,
                 "bSortable": false,
-                "sWidth": "90px",
+                "sWidth": "60px",
                 "fnRender": function (oObj) {
                     return '<a class="lnkSendEmailDonar btn btn-primary btn-mini" style="margin-right: 5px;" href=\"/Donar/SendEmail/' +
-                                oObj.aData[6] + '\" ><icon class="icon-envelope icon-white"></icon></a>' +
+                                oObj.aData[7] + '\" ><icon class="icon-envelope icon-white"></icon></a>' +
                                 '<a class="lnkDetailDonar  btn btn-success btn-mini" style="margin-right: 5px;" href=\"/Donar/Details/' +
-                                oObj.aData[6] + '\" ><icon class="icon-search icon-white"></icon></a>';
+                                oObj.aData[7] + '\" ><icon class="icon-search icon-white"></icon></a>';
 
                 }
 

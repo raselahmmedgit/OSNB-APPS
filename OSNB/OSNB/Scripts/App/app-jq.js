@@ -1,8 +1,8 @@
 ﻿
 $(function () {
     $(".datePicker").datepicker({
-        showOn: "button",
-        buttonImage: "/Images/App/calendar.gif",
-        buttonImageOnly: true
+        //        showOn: "button",
+        //        buttonImage: "/Content/Images/App/calendar.gif",
+        //        buttonImageOnly: true
     });
 });

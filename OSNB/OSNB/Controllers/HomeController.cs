@@ -41,7 +41,7 @@ namespace OSNB.Controllers
 
             if (!string.IsNullOrEmpty(param.sSearch))
             {
-                filteredBloodRequests = viewBloodRequests.Where(m => (m.RequesterName ?? "").Contains(param.sSearch)).ToList();
+                filteredBloodRequests = viewBloodRequests.Where(m => (m.RequesterName ?? "").Contains(param.sSearch) || (m.RequiredBloodGroup ?? "").Contains(param.sSearch)).ToList();
             }
             else
             {
