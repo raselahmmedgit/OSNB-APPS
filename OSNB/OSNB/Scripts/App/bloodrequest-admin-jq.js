@@ -1,4 +1,25 @@
-﻿//-----------------------------------------------------
+﻿
+// Edit AdminBloodRequest Success Function
+function StatusAdminBloodRequestSuccess() {
+    if ($("#updateTargetId").html() == "True") {
+
+        //now we can close the dialog
+        $('#statusBloodRequestDialog').dialog('close');
+
+        //JQDialogAlert mass, status
+        JQDialogAlert("Blood Request updated successfully.", "dialogSuccess");
+
+        bloodRequestObjData.fnDraw();
+
+    }
+    else {
+        //show message in popup
+        $("#updateTargetId").show();
+    }
+}
+
+
+//-----------------------------------------------------
 //start Add, Edit, Delete - Success Funtion
 
 var bloodRequestObjData;
@@ -29,13 +50,15 @@ $(function () {
             { "sName": "PresentLocation" },
             { "sName": "DateOfDonation" },
             { "sName": "RequiredBloodGroup" },
+            { "sName": "RequesterStatus" },
             { "sName": "Actions",
                 "bSearchable": false,
                 "bSortable": false,
-                "sWidth": "30px",
+                "sWidth": "70px",
                 "fnRender": function (oObj) {
                     return '<a class="lnkDetailsBloodRequest  btn btn-success btn-mini" style="margin-right: 5px;" href=\"/Admin/AdminBloodRequest/Details/' +
-                                oObj.aData[8] + '\" ><icon class="icon-search icon-white"></icon></a>';
+                                oObj.aData[7] + '\" ><icon class="icon-search icon-white"></icon></a> <a class="lnkStatusBloodRequest  btn btn-search btn-mini" style="margin-right: 5px;" href=\"/Admin/AdminBloodRequest/Status/' +
+                                oObj.aData[7] + '\" ><icon class="icon-pencil icon-white"></icon></a>';
 
                 }
 
@@ -69,6 +92,55 @@ $(function () {
         var viewUrl = linkObj.attr('href');
         $.get(viewUrl, function (data) {
             dialogDiv.html(data);
+            dialogDiv.dialog('open');
+        });
+        return false;
+
+    });
+
+
+    //status AdminBloodRequest
+    $("#statusBloodRequestDialog").dialog({
+        autoOpen: false,
+        width: 500,
+        resizable: false,
+        closeOnEscape: false,
+        modal: true,
+        close: function (event, ui) {
+            $(".popover").hide();
+        },
+        buttons: {
+            "Update": function () {
+                //make sure there is nothing on the message before we continue   
+                $("#updateTargetId").html('');
+                $("#statusAdminBloodRequestForm").submit();
+            },
+            "Cancel": function () {
+                $(this).dialog("close");
+            }
+        }
+
+    });
+
+    $('#bloodRequestDataTable tbody td a.lnkStatusBloodRequest').live('click', function () {
+        //$('#bloodRequestDataTable tbody td .lnkStatusBloodRequest').on('click', 'a', function () {
+
+        //change the title of the dialog
+        var linkObj = $(this);
+        var dialogDiv = $('#statusBloodRequestDialog');
+        var viewUrl = linkObj.attr('href');
+        $.get(viewUrl, function (data) {
+            dialogDiv.html(data);
+            //validation
+            var $form = $("#statusAdminBloodRequestForm");
+            // Unbind existing validation
+            $form.unbind();
+            $form.data("validator", null);
+            // Check document for changes
+            $.validator.unobtrusive.parse(document);
+            // Re add validation with changes
+            $form.validate($form.data("unobtrusiveValidation").options);
+            //open dialog
             dialogDiv.dialog('open');
         });
         return false;

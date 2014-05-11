@@ -531,6 +531,7 @@
     <Content Include="Areas\Admin\Views\AdminBloodRequest\Index.cshtml" />
     <Content Include="Areas\Member\Views\Member\Details.cshtml" />
     <Content Include="Areas\Admin\Views\AdminBloodRequest\_Details.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminBloodRequest\_Status.cshtml" />
     <None Include="ClassDiagram1.cd" />
     <None Include="Content\DataTables-1.9.4\extras\TableTools\media\images\psd\collection.psd" />
     <None Include="Content\DataTables-1.9.4\extras\TableTools\media\images\psd\copy document.psd" />

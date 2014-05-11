@@ -29,13 +29,14 @@ $(function () {
             { "sName": "PresentLocation" },
             { "sName": "DateOfDonation" },
             { "sName": "RequiredBloodGroup" },
+            { "sName": "RequesterStatus" },
             { "sName": "Actions",
                 "bSearchable": false,
                 "bSortable": false,
                 "sWidth": "30px",
                 "fnRender": function (oObj) {
                     return '<a class="lnkDetailsBloodRequest  btn btn-success btn-mini" style="margin-right: 5px;" href=\"/BloodRequest/Details/' +
-                                oObj.aData[8] + '\" ><icon class="icon-search icon-white"></icon></a>';
+                                oObj.aData[7] + '\" ><icon class="icon-search icon-white"></icon></a>';
 
                 }
 

@@ -36,6 +36,14 @@ namespace OSNB.Models
         [MaxLength(250)]
         public string AppealMessage { get; set; }
 
+        [Display(Name = "Request Status")]
+        [MaxLength(200)]
+        public string RequesterStatus { get; set; }
+
+        [Display(Name = "Status Message")]
+        [MaxLength(200)]
+        public string RequesterStatusMessage { get; set; }
+
         //Required Blood Group
         public int RequiredBloodGroupId { get; set; }
         [ForeignKey("RequiredBloodGroupId")]

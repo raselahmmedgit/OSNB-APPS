@@ -21,6 +21,10 @@ namespace OSNB.ViewModels.DataTableViewModels
 
         public string AppealMessage { get; set; }
 
+        public string RequesterStatus { get; set; }
+
+        public string RequesterStatusMessage { get; set; }
+
         //Required Blood Group
         public string RequiredBloodGroupId { get; set; }
         public string RequiredBloodGroup { get; set; }
