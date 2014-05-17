@@ -4804,7 +4804,8 @@ input[type="submit"].btn.btn-mini {
 
 .navbar-inverse .brand,
 .navbar-inverse .nav > li > a {
-  color: #999999;
+  color: #fff;
+  font-weight: bold;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
 
@@ -4812,7 +4813,7 @@ input[type="submit"].btn.btn-mini {
 .navbar-inverse .nav > li > a:hover,
 .navbar-inverse .brand:focus,
 .navbar-inverse .nav > li > a:focus {
-  color: #ffffff;
+  color: #999999;
 }
 
 .navbar-inverse .brand {
@@ -4825,14 +4826,14 @@ input[type="submit"].btn.btn-mini {
 
 .navbar-inverse .nav > li > a:focus,
 .navbar-inverse .nav > li > a:hover {
-  color: #ffffff;
+  color: #999999;
   background-color: transparent;
 }
 
 .navbar-inverse .nav .active > a,
 .navbar-inverse .nav .active > a:hover,
 .navbar-inverse .nav .active > a:focus {
-  color: #ffffff;
+  color: #999999;
   background-color: #111111;
 }
 
