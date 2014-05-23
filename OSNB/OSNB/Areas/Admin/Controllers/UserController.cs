@@ -342,8 +342,9 @@ namespace OSNB.Areas.Admin.Controllers
                     var memberDistricts = SelectListItemExtension.PopulateDropdownList(_db.MemberDistricts.ToList<MemberDistrict>(), "Id", "DistrictName").ToList();
                     var memberZones = SelectListItemExtension.PopulateDropdownList(_db.MemberZones.ToList<MemberZone>(), "Id", "ZoneName").ToList();
                     var memberHospitals = SelectListItemExtension.PopulateDropdownList(_db.MemberHospitals.ToList<MemberHospital>(), "Id", "HospitalName").ToList();
+                    var memberStatues = SelectListItemExtension.PopulateDropdownList(_db.MemberStatues.ToList<MemberStatus>(), "Id", "MemberStatusTitle").ToList();
 
-                    var memberViewModel = new CreateOrEditMemberViewModel { UserName = user.UserName, UserEmail = user.Email, ddlMemberBloodGroups = memberBloodGroups, ddlMemberDistricts = memberDistricts, ddlMemberZones = memberZones, ddlMemberHospitals = memberHospitals };
+                    var memberViewModel = new CreateOrEditMemberViewModel { UserName = user.UserName, UserEmail = user.Email, ddlMemberBloodGroups = memberBloodGroups, ddlMemberDistricts = memberDistricts, ddlMemberZones = memberZones, ddlMemberHospitals = memberHospitals, ddlMemberStatus = memberStatues };
 
                     return View(memberViewModel);
 
@@ -370,11 +371,13 @@ namespace OSNB.Areas.Admin.Controllers
             var memberDistricts = SelectListItemExtension.PopulateDropdownList(_db.MemberDistricts.ToList<MemberDistrict>(), "Id", "DistrictName", isEdit: true, selectedValue: viewModel.MemberDistrictId != 0 ? viewModel.MemberDistrictId.ToString() : "0").ToList();
             var memberZones = SelectListItemExtension.PopulateDropdownList(_db.MemberZones.ToList<MemberZone>(), "Id", "ZoneName", isEdit: true, selectedValue: viewModel.MemberZoneId != 0 ? viewModel.MemberZoneId.ToString() : "0").ToList();
             var memberHospitals = SelectListItemExtension.PopulateDropdownList(_db.MemberHospitals.ToList<MemberHospital>(), "Id", "HospitalName", isEdit: true, selectedValue: viewModel.MemberHospitalId != 0 ? viewModel.MemberHospitalId.ToString() : "0").ToList();
+            var memberStatues = SelectListItemExtension.PopulateDropdownList(_db.MemberStatues.ToList<MemberStatus>(), "Id", "MemberStatusTitle").ToList();
 
             viewModel.ddlMemberBloodGroups = memberBloodGroups;
             viewModel.ddlMemberDistricts = memberDistricts;
             viewModel.ddlMemberZones = memberZones;
             viewModel.ddlMemberHospitals = memberHospitals;
+            viewModel.ddlMemberStatus = memberStatues;
 
             try
             {
@@ -396,7 +399,11 @@ namespace OSNB.Areas.Admin.Controllers
                         viewModel.ThumbImageUrl = imageUrl;
                     }
 
-                    OSNB.Models.Member model = new OSNB.Models.Member { FirstName = viewModel.FirstName, LastName = viewModel.LastName, SurName = viewModel.SurName, DateOfBirth = viewModel.DateOfBirth, Address = viewModel.Address, PhoneNumber = viewModel.PhoneNumber, MobileNumber = viewModel.MobileNumber, ThumbImageUrl = viewModel.ThumbImageUrl, SmallImageUrl = viewModel.SmallImageUrl, UserName = viewModel.UserName, MemberBloodGroupId = viewModel.MemberBloodGroupId, MemberDistrictId = viewModel.MemberDistrictId == 0 ? 1 : viewModel.MemberDistrictId, MemberZoneId = viewModel.MemberZoneId, MemberHospitalId = viewModel.MemberHospitalId };
+                    var memberStatus = _db.MemberStatues.SingleOrDefault(x => x.Id == viewModel.MemberStatusId);
+                    var memberStatusList = new List<MemberStatus>();
+                    memberStatusList.Add(memberStatus);
+
+                    OSNB.Models.Member model = new OSNB.Models.Member { FirstName = viewModel.FirstName, LastName = viewModel.LastName, SurName = viewModel.SurName, DateOfBirth = viewModel.DateOfBirth, Address = viewModel.Address, PhoneNumber = viewModel.PhoneNumber, MobileNumber = viewModel.MobileNumber, ThumbImageUrl = viewModel.ThumbImageUrl, SmallImageUrl = viewModel.SmallImageUrl, UserName = viewModel.UserName, MemberBloodGroupId = viewModel.MemberBloodGroupId, MemberDistrictId = viewModel.MemberDistrictId == 0 ? 1 : viewModel.MemberDistrictId, MemberZoneId = viewModel.MemberZoneId, MemberHospitalId = viewModel.MemberHospitalId, MemberStatues = memberStatusList };
 
                     _db.Members.Add(model);
                     _db.SaveChanges();

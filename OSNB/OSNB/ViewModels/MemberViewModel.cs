@@ -114,17 +114,17 @@ namespace OSNB.ViewModels
         [Display(Name = "User name")]
         public string UserName { get; set; }
 
-        [Required(ErrorMessage = "User Enail is required.")]
+        [Required(ErrorMessage = "User Email is required.")]
         [Display(Name = "User Email")]
         public string UserEmail { get; set; }
 
-        [Required(ErrorMessage = "Alternative Email is required.")]
+        //[Required(ErrorMessage = "Alternative Email is required.")]
         [DataType(DataType.EmailAddress)]
         [Display(Name = "Alternative Email address")]
         public string Email { get; set; }
 
         [DisplayName("Profile Image")]
-        [Required(ErrorMessage = "Image is required.")]
+        //[Required(ErrorMessage = "Image is required.")]
         public HttpPostedFileBase ImageFile { get; set; }
 
         [Display(Name = "Profile Thumb Image")]
@@ -135,25 +135,35 @@ namespace OSNB.ViewModels
 
         public UserViewModel UserViewModel { get; set; }
 
+        [Display(Name = "Blood Group")]
         public int MemberBloodGroupId { get; set; }
         public string MemberBloodGroupName { get; set; }
         public virtual MemberBloodGroupViewModel MemberBloodGroupViewModel { get; set; }
         public IEnumerable<SelectListItem> ddlMemberBloodGroups { get; set; }
 
+        [Display(Name = "District")]
         public int MemberDistrictId { get; set; }
         public string MemberDistrictName { get; set; }
         public virtual MemberDistrictViewModel MemberDistrictViewModel { get; set; }
         public IEnumerable<SelectListItem> ddlMemberDistricts { get; set; }
 
+        [Display(Name = "City Zone")]
         public int MemberZoneId { get; set; }
         public string MemberZoneName { get; set; }
         public virtual MemberZoneViewModel MemberZoneViewModel { get; set; }
         public IEnumerable<SelectListItem> ddlMemberZones { get; set; }
 
+        [Display(Name = "Hospital")]
         public int MemberHospitalId { get; set; }
         public string MemberHospitalName { get; set; }
         public virtual MemberHospitalViewModel MemberHospitalViewModel { get; set; }
         public IEnumerable<SelectListItem> ddlMemberHospitals { get; set; }
+
+        [Display(Name = "Status")]
+        public int MemberStatusId { get; set; }
+        public string MemberStatusName { get; set; }
+        public virtual MemberStatusViewModel MemberStatusViewModel { get; set; }
+        public IEnumerable<SelectListItem> ddlMemberStatus { get; set; }
 
     }
 
@@ -222,24 +232,28 @@ namespace OSNB.ViewModels
 
         public UserViewModel UserViewModel { get; set; }
 
+        [Display(Name = "Blood Group")]
         [Range(1, long.MaxValue, ErrorMessage = "Please select one blood group.")]
         public int MemberBloodGroupId { get; set; }
         public string MemberBloodGroupName { get; set; }
         public virtual MemberBloodGroupViewModel MemberBloodGroupViewModel { get; set; }
         public IEnumerable<SelectListItem> ddlMemberBloodGroups { get; set; }
 
+        [Display(Name = "District")]
         [Range(1, long.MaxValue, ErrorMessage = "Please select one district.")]
         public int MemberDistrictId { get; set; }
         public string MemberDistrictName { get; set; }
         public virtual MemberDistrictViewModel MemberDistrictViewModel { get; set; }
         public IEnumerable<SelectListItem> ddlMemberDistricts { get; set; }
 
+        [Display(Name = "Zone")]
         [Range(1, long.MaxValue, ErrorMessage = "Please select one zone.")]
         public int MemberZoneId { get; set; }
         public string MemberZoneName { get; set; }
         public virtual MemberZoneViewModel MemberZoneViewModel { get; set; }
         public IEnumerable<SelectListItem> ddlMemberZoneGroups { get; set; }
 
+        [Display(Name = "Hospital")]
         [Range(1, long.MaxValue, ErrorMessage = "Please select one hospital.")]
         public int MemberHospitalId { get; set; }
         public string MemberHospitalName { get; set; }
