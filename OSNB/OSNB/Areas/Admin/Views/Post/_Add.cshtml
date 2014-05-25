@@ -41,6 +41,26 @@
             </div>
             @Html.ValidationMessageFor(x => x.Content)
         </div>
-
+        <!-- CreateDate -->
+        <div class="row-fluid">
+            <div class="span4">
+                <div class="control-label">
+                    @Html.LabelFor(model => model.CreateDate)
+                </div>
+            </div>
+            <div class="span8">
+                @Html.TextBoxFor(x => x.CreateDate, new { @class = "datePicker" })
+            </div>
+            @Html.ValidationMessageFor(x => x.CreateDate)
+        </div>
     </div>
 }
+<script type="text/javascript">
+    $(function () {
+        $(".datePicker").datepicker({
+            //        showOn: "button",
+            //        buttonImage: "/Content/Images/App/calendar.gif",
+            //        buttonImageOnly: true
+        });
+    });
+</script>

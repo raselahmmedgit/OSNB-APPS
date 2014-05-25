@@ -50,9 +50,18 @@
                 </div>
             </div>
             <div class="span8">
-                @Html.TextAreaFor(x => x.CreateDate)
+                @Html.TextBoxFor(x => x.CreateDate, new { @class = "datePicker" })
             </div>
             @Html.ValidationMessageFor(x => x.CreateDate)
         </div>
     </div>
 }
+<script type="text/javascript">
+    $(function () {
+        $(".datePicker").datepicker({
+            //        showOn: "button",
+            //        buttonImage: "/Content/Images/App/calendar.gif",
+            //        buttonImageOnly: true
+        });
+    });
+</script>
