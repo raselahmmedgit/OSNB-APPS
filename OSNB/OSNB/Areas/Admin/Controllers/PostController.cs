@@ -164,7 +164,7 @@ namespace OSNB.Areas.Admin.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var post = new Post { Id = viewModel.Id, Title = viewModel.Title, Content = viewModel.Content };
+                    var post = new Post { Id = viewModel.Id, Title = viewModel.Title, Content = viewModel.Content, CreateDate = viewModel.CreateDate};
 
                     _db.Entry(post).State = EntityState.Modified;
                     _db.SaveChanges();

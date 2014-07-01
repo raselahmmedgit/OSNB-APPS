@@ -7,6 +7,7 @@ using OSNB.Models;
 using OSNB.ViewModels;
 using OSNB.Helpers;
 using System.Data;
+using System.IO;
 
 namespace OSNB.Areas.Member.Controllers
 {
@@ -121,7 +122,7 @@ namespace OSNB.Areas.Member.Controllers
         // POST: /Member/Edit/By ID
 
         [HttpPost]
-        public ActionResult Edit(CreateOrEditMemberViewModel viewModel)
+        public ActionResult Edit(CreateOrEditMemberViewModel viewModel, HttpPostedFileBase ImageFile)
         {
             var memberBloodGroups = SelectListItemExtension.PopulateDropdownList(_db.MemberBloodGroups.ToList<MemberBloodGroup>(), "Id", "BloodGroupName", isEdit: true, selectedValue: viewModel.MemberBloodGroupId != 0 ? viewModel.MemberBloodGroupId.ToString() : "0").ToList();
             var memberDistricts = SelectListItemExtension.PopulateDropdownList(_db.MemberDistricts.ToList<MemberDistrict>(), "Id", "DistrictName", isEdit: true, selectedValue: viewModel.MemberDistrictId != 0 ? viewModel.MemberDistrictId.ToString() : "0").ToList();
@@ -139,6 +140,22 @@ namespace OSNB.Areas.Member.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    //you can put your existing save code here
+                    if (ImageFile != null && ImageFile.ContentLength > 0)
+                    {
+                        var uploadDir = "~/Images";
+                        var imagePath = Path.Combine(Server.MapPath(uploadDir), ImageFile.FileName);
+                        var imageUrl = Path.Combine(uploadDir, ImageFile.FileName);
+
+                        ImageFile.SaveAs(imagePath);
+
+                        var imageFile = @"/Images/" + ImageFile.FileName;
+
+                        viewModel.ThumbImageUrl = imageFile;
+                        viewModel.SmallImageUrl = imageFile;
+                    }
+
+
                     var memberStatus = _db.MemberStatues.SingleOrDefault(x => x.Id == viewModel.MemberStatusId);
                     var memberStatusList = new List<MemberStatus>();
                     memberStatusList.Add(memberStatus);

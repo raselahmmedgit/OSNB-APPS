@@ -6,6 +6,7 @@
     <li><a href="@Url.Action("ForBlood", "BloodRequest", new { area = "" }, null)">Request
         For Blood</a></li>
     @*<li><a href="@Url.Action("Index", "Blog", new { area = "" }, null)">Blog</a></li>*@
+    @*<li><a href="@Url.Action("", "", new { area = "" }, null)">Blog</a></li>*@
     @if (Request.IsAuthenticated)
     {
         if (Roles.IsUserInRole("Admin"))
@@ -34,8 +35,8 @@
                     Blood Request</a></li>
                 <li><a href="@Url.Action("Index", "SendEmail", new { @area = "Admin" }, null)">Send
                     Email</a></li>
-                @*<li><a href="@Url.Action("Index", "Post", new { @area = "Admin" }, null)">Post</a></li>
-                <li><a href="@Url.Action("Index", "Comment", new { @area = "Admin" }, null)">Comment</a></li>*@
+                <li><a href="@Url.Action("Index", "Post", new { @area = "Admin" }, null)">Post</a></li>
+                <li><a href="@Url.Action("Index", "Comment", new { @area = "Admin" }, null)">Comment</a></li>
             </ul>
         </li>
         }
@@ -45,8 +46,8 @@
                 <li><a href="@Url.Action("Index", "Member", new { @area = "Member" }, null)">Member</a></li>
                 @*<li><a href="@Url.Action("Index", "RequestToMe", new { @area = "Member" }, null)">Request To Me</a></li>
                 <li><a href="@Url.Action("Index", "RequestForMe", new { @area = "Member" }, null)">Request For Me</a></li>*@
-                @*<li><a href="@Url.Action("Index", "Post", new { @area = "Member" }, null)">Post</a></li>
-                <li><a href="@Url.Action("Index", "Comment", new { @area = "Member" }, null)">Comment</a></li>*@
+                <li><a href="@Url.Action("Index", "Post", new { @area = "Member" }, null)">Post</a></li>
+                <li><a href="@Url.Action("Index", "Comment", new { @area = "Member" }, null)">Comment</a></li>
             </ul>
         </li>
     }
